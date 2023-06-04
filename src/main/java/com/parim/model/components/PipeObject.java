@@ -8,7 +8,7 @@ public class PipeObject extends TileObject {
     private SectionObject section;
     private boolean activated;
     public PipeObject(){}
-    public PipeObject(int x, int y, String type) {
+    public PipeObject(double x, double y, String type) {
         super(x, y, type);
     }
 }

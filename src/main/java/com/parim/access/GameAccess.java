@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameAccess {
+    private static final int NUMBER_OF_LEVELS = 1;
     private ObjectMapper mapper;
     private final String directory = "src/main/resources/game/L";
     private ArrayList<LevelObject> levelObjects = new ArrayList<>();
@@ -20,7 +21,7 @@ public class GameAccess {
     }
 
     public GameObject loadGame(){
-        for (int i = 1; i <= numberOfLevels(); i++){
+        for (int i = 1; i <= NUMBER_OF_LEVELS; i++){
             try {
                 File levelFile = new File(directory + String.valueOf(i) + ".json");
                 LevelObject levelObject = mapper.readValue(levelFile, LevelObject.class);
@@ -30,9 +31,4 @@ public class GameAccess {
             }
         }
         return new GameObject(levelObjects);
-    }
-
-    private int numberOfLevels(){
-        return 1;
-    }
-}
+    }}

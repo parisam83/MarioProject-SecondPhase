@@ -1,13 +1,14 @@
 package com.parim.model.components;
 
 public abstract class TileObject {
-    protected static int SIZE = 90;
-    protected int x, y;
-    protected int xVelocity, yVelocity;
+    protected static double SIZE;
+    protected double x, y;
+    protected double xVelocity, yVelocity;
     protected String type;
+    protected double speed;
 
     public TileObject(){}
-    public TileObject(int x, int y, String type){
+    public TileObject(double x, double y, String type){
         this.x = x;
         this.y = y;
         this.type = type;
@@ -19,44 +20,43 @@ public abstract class TileObject {
     }
 
     // Getters and Setters
-
-    public static int getSIZE() {
+    public static double getSIZE() {
         return SIZE;
     }
 
-    public static void setSIZE(int SIZE) {
+    public static void setSIZE(double SIZE) {
         TileObject.SIZE = SIZE;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public int getXVelocity() {
+    public double getXVelocity() {
         return xVelocity;
     }
 
-    public void setXVelocity(int xVelocity) {
+    public void setXVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
 
-    public int getYVelocity() {
+    public double getYVelocity() {
         return yVelocity;
     }
 
-    public void setYVelocity(int yVelocity) {
+    public void setYVelocity(double yVelocity) {
         this.yVelocity = yVelocity;
     }
 
@@ -66,5 +66,13 @@ public abstract class TileObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 }
