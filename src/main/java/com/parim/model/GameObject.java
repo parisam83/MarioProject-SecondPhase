@@ -10,10 +10,12 @@ public class GameObject {
     private String marioState = "MiniMario";
     private MarioObject mario = new MarioObject(0, 0, marioState);
     private LevelObject currentLevel;
+    private SectionObject currentSection;
 
     public GameObject(ArrayList<LevelObject> levels) {
         this.levels = levels;
         currentLevel = levels.get(0);
+        currentSection = currentLevel.getSections().get(0);
     }
 
     // Getters and Setters
@@ -71,5 +73,13 @@ public class GameObject {
 
     public void setCurrentLevel(LevelObject currentLevel) {
         this.currentLevel = currentLevel;
+    }
+
+    public SectionObject getCurrentSection() {
+        return currentSection;
+    }
+
+    public void setCurrentSection(SectionObject currentSection) {
+        this.currentSection = currentSection;
     }
 }

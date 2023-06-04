@@ -14,6 +14,7 @@ public class SectionObject {
     private ArrayList<PipeObject> pipes;
     private PipeObject spawnPipe;
 
+    public SectionObject(){}
     public SectionObject(int length, int time, ArrayList<BlockObject> blocks, ArrayList<EnemyObject> enemies,
                          ArrayList<PipeObject> pipes, PipeObject spawnPipe) {
         this.length = length;

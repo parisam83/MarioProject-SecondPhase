@@ -1,11 +1,12 @@
 package com.parim.model.components;
 
 public abstract class TileObject {
-    protected static int SIZE = 60;
+    protected static int SIZE = 90;
     protected int x, y;
     protected int xVelocity, yVelocity;
     protected String type;
 
+    public TileObject(){}
     public TileObject(int x, int y, String type){
         this.x = x;
         this.y = y;

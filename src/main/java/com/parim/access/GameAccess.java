@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class GameAccess {
     private ObjectMapper mapper;
     private final String directory = "src/main/resources/game/L";
-    private ArrayList<LevelObject> levelObjects;
+    private ArrayList<LevelObject> levelObjects = new ArrayList<>();
 
     public GameAccess(){
         mapper = new ObjectMapper();
@@ -35,5 +35,4 @@ public class GameAccess {
     private int numberOfLevels(){
         return 1;
     }
-
 }
