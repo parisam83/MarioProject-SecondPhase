@@ -5,6 +5,7 @@ public abstract class TileObject {
     protected double x, y;
     protected double xVelocity, yVelocity;
     protected String type;
+    protected double speed;
 
     public TileObject(){}
     public TileObject(double x, double y, String type){
@@ -19,7 +20,6 @@ public abstract class TileObject {
     }
 
     // Getters and Setters
-
     public static double getSIZE() {
         return SIZE;
     }
@@ -66,5 +66,13 @@ public abstract class TileObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 }
