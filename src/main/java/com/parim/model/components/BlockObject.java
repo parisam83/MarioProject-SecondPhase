@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class BlockObject extends TileObject {
     String item;
     public BlockObject(){}
-    public BlockObject(int x, int y, String type) {
+    public BlockObject(double x, double y, String type) {
         super(x, y, type);
     }
 }

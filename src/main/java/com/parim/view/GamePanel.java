@@ -25,18 +25,18 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (BlockObject block : blocks) {
-            g.drawRect(block.getX() * TileObject.getSIZE(), block.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-            g.fillRect(block.getX() * TileObject.getSIZE(), block.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
+            g.drawRect((int) block.getX() * TileObject.getSIZE(), (int) block.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
+            g.fillRect((int) block.getX() * TileObject.getSIZE(), (int) block.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
         }
         g.setColor(Color.red);
         for (EnemyObject enemy : enemies) {
-            g.drawRect(enemy.getX() * TileObject.getSIZE(), enemy.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-            g.fillRect(enemy.getX() * TileObject.getSIZE(), enemy.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
+            g.drawRect((int) enemy.getX() * TileObject.getSIZE(), (int) enemy.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
+            g.fillRect((int) enemy.getX() * TileObject.getSIZE(), (int) enemy.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
         }
         g.setColor(Color.green);
         for (PipeObject pipe : pipes) {
-            g.drawRect(pipe.getX() * TileObject.getSIZE(), pipe.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-            g.fillRect(pipe.getX() * TileObject.getSIZE(), pipe.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
+            g.drawRect((int) pipe.getX() * TileObject.getSIZE(), (int) pipe.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
+            g.fillRect((int) pipe.getX() * TileObject.getSIZE(), (int) pipe.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
         }
     }
 }
