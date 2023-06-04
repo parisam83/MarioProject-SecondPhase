@@ -14,19 +14,25 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GameController {
-    private static GameController instance = new GameController(new MainFrame().getInstance());
+    private static GameController instance;
     private boolean gameFinished = false;
     private MainFrame mainFrame;
-    private GamePanel gamePanel = new GamePanel();
+    private GamePanel gamePanel;
     private PausePanel pausePanel = new PausePanel();
     private GameObject gameObject = new GameAccess().loadGame();
     private MarioObject marioObject = gameObject.getMario();
     private ArrayList<TileObject> allTiles = new ArrayList<TileObject>();
-    private Set<KeyEvent> pressedKeys = new HashSet<>();
+    private Set<Integer> pressedKeys = new HashSet<>();
 
+    public GameController(){
+    }
     public GameController(MainFrame mainFrame){
+        if (instance != null) return;
+        instance = this;
+
         this.mainFrame = mainFrame;
-        this.mainFrame.setContentPane(gamePanel);
+        this.mainFrame.setContentPane(gamePanel = new GamePanel());
+        gamePanel.requestFocus();
     }
 
     public void run(){
@@ -35,7 +41,6 @@ public class GameController {
             updateVelocity();
             move();
             gamePanel.requestFocus();
-            mainFrame.requestFocus();
             mainFrame.repaint();
             mainFrame.revalidate();
         }
@@ -63,24 +68,25 @@ public class GameController {
         return gameObject;
     }
     public static GameController getInstance(){
+        if (instance == null)  instance = new GameController(new MainFrame());
         return instance;
     }
 
     private void keyPressed() {
         boolean left = false, right = false, up = false, down = false, space = false, escape = false;
-        for (KeyEvent e : pressedKeys) {
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) left = true;
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) right = true;
-            if (e.getKeyCode() == KeyEvent.VK_UP) up = true;
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) down = true;
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) space = true;
-            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) escape = true;
+        for (Integer e : pressedKeys) {
+            if (e == KeyEvent.VK_LEFT) left = true;
+            if (e == KeyEvent.VK_RIGHT) right = true;
+            if (e == KeyEvent.VK_UP) up = true;
+            if (e == KeyEvent.VK_DOWN) down = true;
+            if (e == KeyEvent.VK_SPACE) space = true;
+            if (e == KeyEvent.VK_ESCAPE) escape = true;
         }
 
         if (right) marioObject.setXVelocity(marioObject.getSpeed());
         if (left) marioObject.setXVelocity(-marioObject.getSpeed());
         if (up) marioObject.setYVelocity(-marioObject.getSpeed());
-        if (down) marioObject.setType("MEGA_MINI");
+        if (down) marioObject.setType(marioObject.getType() + "SITDOWN");
         if (space) marioObject.setXVelocity(marioObject.getSpeed());
         if (escape){
             gameFinished = true;
@@ -93,26 +99,26 @@ public class GameController {
 
     private void keyReleased() {
         boolean left = false, right = false, up = false, down = false, space = false, escape = false;
-        for (KeyEvent e : pressedKeys) {
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) left = true;
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) right = true;
-            if (e.getKeyCode() == KeyEvent.VK_UP) up = true;
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) down = true;
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) space = true;
-            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) escape = true;
+        for (Integer e : pressedKeys) {
+            if (e == KeyEvent.VK_LEFT) left = true;
+            if (e == KeyEvent.VK_RIGHT) right = true;
+            if (e == KeyEvent.VK_UP) up = true;
+            if (e == KeyEvent.VK_DOWN) down = true;
+            if (e == KeyEvent.VK_SPACE) space = true;
+            if (e == KeyEvent.VK_ESCAPE) escape = true;
         }
 
         if (!right && !left) marioObject.setXVelocity(0);
-        if (!down) marioObject.setType("SITDOWN");
+        if (!down) marioObject.setType(marioObject.getType().replace("_SITDOWN", ""));
 
         for (TileObject tileObject : allTiles)
             tileObject.setXVelocity(-marioObject.getXVelocity());
     }
 
-    public void addPressedKey(KeyEvent e){
+    public void addPressedKey(Integer e){
         pressedKeys.add(e);
     }
-    public void removePressedKey(KeyEvent e){
+    public void removePressedKey(Integer e){
         pressedKeys.remove(e);
     }
 }

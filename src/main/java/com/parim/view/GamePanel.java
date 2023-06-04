@@ -1,6 +1,5 @@
 package com.parim.view;
 
-import com.parim.access.GameAccess;
 import com.parim.controller.GameController;
 import com.parim.model.GameObject;
 import com.parim.model.SectionObject;
@@ -14,7 +13,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
-    private GameObject game = new GameAccess().loadGame();
+    private GameObject game = GameController.getInstance().loadGame();
     private MarioObject mario = game.getMario();
     private SectionObject section = game.getCurrentSection();
     private ArrayList<BlockObject> blocks = section.getBlocks();
@@ -23,7 +22,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel(){
         this.setLayout(null);
-        this.requestFocus();
+        this.setFocusable(true);
         this.addKeyListener(new KL());
     }
 
@@ -43,12 +42,12 @@ public class GamePanel extends JPanel {
     public class KL extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            GameController.getInstance().addPressedKey(e);
+            GameController.getInstance().addPressedKey(e.getKeyCode());
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            GameController.getInstance().removePressedKey(e);
+            GameController.getInstance().removePressedKey(e.getKeyCode());
         }
     }
 }
