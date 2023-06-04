@@ -8,7 +8,7 @@ public class GameObject {
     private ArrayList<LevelObject> levels;
     private int hearts = 3, score = 0, coins = 0;
     private String marioState = "MINI";
-    private MarioObject mario = new MarioObject(1, 0, marioState);
+    private MarioObject mario = new MarioObject(1, 10, marioState);
     private LevelObject currentLevel;
     private SectionObject currentSection;
 

@@ -2,6 +2,8 @@ package com.parim.controller;
 
 import com.parim.access.GameAccess;
 import com.parim.model.GameObject;
+import com.parim.model.LevelObject;
+import com.parim.model.SectionObject;
 import com.parim.model.components.MarioObject;
 import com.parim.model.components.TileObject;
 import com.parim.view.GamePanel;
@@ -21,7 +23,7 @@ public class GameController {
     private PausePanel pausePanel = new PausePanel();
     private GameObject gameObject = new GameAccess().loadGame();
     private MarioObject marioObject = gameObject.getMario();
-    private ArrayList<TileObject> allTiles = new ArrayList<TileObject>();
+    private ArrayList<TileObject> allTiles = new ArrayList<>();
     private Set<Integer> pressedKeys = new HashSet<>();
 
     public GameController(){
@@ -30,6 +32,7 @@ public class GameController {
         if (instance != null) return;
         instance = this;
 
+        setAllTiles();
         this.mainFrame = mainFrame;
         this.mainFrame.setContentPane(gamePanel = new GamePanel());
         gamePanel.requestFocus();
@@ -120,5 +123,13 @@ public class GameController {
     }
     public void removePressedKey(Integer e){
         pressedKeys.remove(e);
+    }
+    private void setAllTiles() {
+        for (LevelObject levelObject : gameObject.getLevels())
+            for (SectionObject sectionObject : levelObject.getSections()){
+                if (sectionObject.getBlocks() != null) allTiles.addAll(sectionObject.getBlocks());
+                if (sectionObject.getEnemies() != null) allTiles.addAll(sectionObject.getEnemies());
+                if (sectionObject.getPipes() != null) allTiles.addAll(sectionObject.getPipes());
+            }
     }
 }
