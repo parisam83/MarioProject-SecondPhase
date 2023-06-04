@@ -4,6 +4,7 @@ import com.parim.access.GameAccess;
 import com.parim.model.GameObject;
 import com.parim.model.SectionObject;
 import com.parim.model.components.*;
+import com.parim.view.loaders.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,19 +25,12 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (BlockObject block : blocks) {
-            g.drawRect((int) block.getX() * TileObject.getSIZE(), (int) block.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-            g.fillRect((int) block.getX() * TileObject.getSIZE(), (int) block.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-        }
-        g.setColor(Color.red);
-        for (EnemyObject enemy : enemies) {
-            g.drawRect((int) enemy.getX() * TileObject.getSIZE(), (int) enemy.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-            g.fillRect((int) enemy.getX() * TileObject.getSIZE(), (int) enemy.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-        }
-        g.setColor(Color.green);
-        for (PipeObject pipe : pipes) {
-            g.drawRect((int) pipe.getX() * TileObject.getSIZE(), (int) pipe.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-            g.fillRect((int) pipe.getX() * TileObject.getSIZE(), (int) pipe.getY() * TileObject.getSIZE(), TileObject.getSIZE(), TileObject.getSIZE());
-        }
+        TileObject.setSIZE(Toolkit.getDefaultToolkit().getScreenSize().width/(double) section.getLength());
+        for (BlockObject block : blocks)
+            g.drawImage(ImageLoader.getInstance().LoadObject("/blocks/" + block.getType()), (int) (block.getX() * TileObject.getSIZE()), (int) (block.getY() * TileObject.getSIZE()), null);
+        for (EnemyObject enemy : enemies)
+            g.drawImage(ImageLoader.getInstance().LoadObject("/enemies/" + enemy.getType()), (int) (enemy.getX() * TileObject.getSIZE()), (int) (enemy.getY() * TileObject.getSIZE()), null);
+        for (PipeObject pipe : pipes)
+            g.drawImage(ImageLoader.getInstance().LoadObject("/pipes/" + pipe.getType()), (int) (pipe.getX() * TileObject.getSIZE()), (int) (pipe.getY() * TileObject.getSIZE()), null);
     }
 }

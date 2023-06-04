@@ -1,7 +1,7 @@
 package com.parim.model.components;
 
 public abstract class TileObject {
-    protected static int SIZE = 90;
+    protected static double SIZE;
     protected double x, y;
     protected double xVelocity, yVelocity;
     protected String type;
@@ -20,11 +20,11 @@ public abstract class TileObject {
 
     // Getters and Setters
 
-    public static int getSIZE() {
+    public static double getSIZE() {
         return SIZE;
     }
 
-    public static void setSIZE(int SIZE) {
+    public static void setSIZE(double SIZE) {
         TileObject.SIZE = SIZE;
     }
 
