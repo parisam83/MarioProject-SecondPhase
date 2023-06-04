@@ -16,6 +16,7 @@ public class MainFrame extends JFrame {
         this.setLocation(0, 0);
         this.setResizable(false);
         this.setVisible(true);
+        this.setFocusable(true);
     }
 
     public static MainFrame getInstance() {
