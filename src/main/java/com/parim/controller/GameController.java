@@ -6,6 +6,7 @@ import com.parim.model.LevelObject;
 import com.parim.model.SectionObject;
 import com.parim.model.components.MarioObject;
 import com.parim.model.components.TileObject;
+import com.parim.model.interfaces.Movable;
 import com.parim.view.GamePanel;
 import com.parim.view.MainFrame;
 import com.parim.view.PausePanel;
@@ -57,7 +58,8 @@ public class GameController {
     public void move(){
         marioObject.move();
         for (TileObject tile : allTiles)
-            tile.move();
+            if (tile instanceof Movable)
+                ((Movable) tile).move();
     }
     public void sleep(){
         try {
@@ -89,7 +91,7 @@ public class GameController {
         if (right) marioObject.setXVelocity(marioObject.getSpeed());
         if (left) marioObject.setXVelocity(-marioObject.getSpeed());
         if (up) marioObject.setYVelocity(-marioObject.getSpeed());
-        if (down) marioObject.setType(marioObject.getType() + "SITDOWN");
+        // if (down) marioObject.setType(marioObject.getType() + "SITDOWN");
         if (space) marioObject.setXVelocity(marioObject.getSpeed());
         if (escape){
             gameFinished = true;
@@ -112,10 +114,10 @@ public class GameController {
         }
 
         if (!right && !left) marioObject.setXVelocity(0);
-        if (!down) marioObject.setType(marioObject.getType().replace("_SITDOWN", ""));
+        // if (!down) marioObject.setType(marioObject.getType().replace("_SITDOWN", ""));
 
-        for (TileObject tileObject : allTiles)
-            tileObject.setXVelocity(-marioObject.getXVelocity());
+//        for (TileObject tileObject : allTiles)
+//            tileObject.setXVelocity(-marioObject.getXVelocity());
     }
 
     public void addPressedKey(Integer e){
