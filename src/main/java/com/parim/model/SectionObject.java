@@ -1,22 +1,22 @@
 package com.parim.model;
 
-import com.parim.model.components.BlockObject;
-import com.parim.model.components.EnemyObject;
-import com.parim.model.components.PipeObject;
+import com.parim.model.components.blocks.Block;
+import com.parim.model.components.enemies.Enemy;
+import com.parim.model.components.pipes.Pipe;
 
 import java.util.ArrayList;
 
 public class SectionObject {
     private static int HEIGHT = 20;
     private int length = 10, time = 0;
-    private ArrayList<BlockObject> blocks;
-    private ArrayList<EnemyObject> enemies;
-    private ArrayList<PipeObject> pipes;
-    private PipeObject spawnPipe;
+    private ArrayList<Block> blocks;
+    private ArrayList<Enemy> enemies;
+    private ArrayList<Pipe> pipes;
+    private Pipe spawnPipe;
 
     public SectionObject(){}
-    public SectionObject(int length, int time, ArrayList<BlockObject> blocks, ArrayList<EnemyObject> enemies,
-                         ArrayList<PipeObject> pipes, PipeObject spawnPipe) {
+    public SectionObject(int length, int time, ArrayList<Block> blocks, ArrayList<Enemy> enemies,
+                         ArrayList<Pipe> pipes, Pipe spawnPipe) {
         this.length = length;
         this.time = time;
         this.blocks = blocks;
@@ -50,35 +50,35 @@ public class SectionObject {
         this.time = time;
     }
 
-    public ArrayList<BlockObject> getBlocks() {
+    public ArrayList<Block> getBlocks() {
         return blocks;
     }
 
-    public void setBlocks(ArrayList<BlockObject> blocks) {
+    public void setBlocks(ArrayList<Block> blocks) {
         this.blocks = blocks;
     }
 
-    public ArrayList<EnemyObject> getEnemies() {
+    public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
 
-    public void setEnemies(ArrayList<EnemyObject> enemies) {
+    public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
     }
 
-    public ArrayList<PipeObject> getPipes() {
+    public ArrayList<Pipe> getPipes() {
         return pipes;
     }
 
-    public void setPipes(ArrayList<PipeObject> pipes) {
+    public void setPipes(ArrayList<Pipe> pipes) {
         this.pipes = pipes;
     }
 
-    public PipeObject getSpawnPipe() {
+    public Pipe getSpawnPipe() {
         return spawnPipe;
     }
 
-    public void setSpawnPipe(PipeObject spawnPipe) {
+    public void setSpawnPipe(Pipe spawnPipe) {
         this.spawnPipe = spawnPipe;
     }
 }
