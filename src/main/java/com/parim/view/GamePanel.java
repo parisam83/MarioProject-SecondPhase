@@ -4,6 +4,9 @@ import com.parim.controller.GameController;
 import com.parim.model.GameObject;
 import com.parim.model.SectionObject;
 import com.parim.model.components.*;
+import com.parim.model.components.blocks.Block;
+import com.parim.model.components.enemies.Enemy;
+import com.parim.model.components.pipes.Pipe;
 import com.parim.view.loaders.ImageLoader;
 
 import javax.swing.*;
@@ -16,9 +19,9 @@ public class GamePanel extends JPanel {
     private GameObject game = GameController.getInstance().loadGame();
     private MarioObject mario = game.getMario();
     private SectionObject section = game.getCurrentSection();
-    private ArrayList<BlockObject> blocks = section.getBlocks();
-    private ArrayList<EnemyObject> enemies = section.getEnemies();
-    private ArrayList<PipeObject> pipes = section.getPipes();
+    private ArrayList<Block> blocks = section.getBlocks();
+    private ArrayList<Enemy> enemies = section.getEnemies();
+    private ArrayList<Pipe> pipes = section.getPipes();
 
     public GamePanel(){
         this.setLayout(null);
@@ -31,11 +34,11 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         TileObject.setSIZE(Toolkit.getDefaultToolkit().getScreenSize().width/(double) section.getLength());
         g.drawImage(ImageLoader.getInstance().LoadObject("/marios/" + mario.getType()), (int) (mario.getX() * TileObject.getSIZE()), (int) (mario.getY() * TileObject.getSIZE()), null);
-        for (BlockObject block : blocks)
+        for (Block block : blocks)
             g.drawImage(ImageLoader.getInstance().LoadObject("/blocks/" + block.getType()), (int) (block.getX() * TileObject.getSIZE()), (int) (block.getY() * TileObject.getSIZE()), null);
-        for (EnemyObject enemy : enemies)
+        for (Enemy enemy : enemies)
             g.drawImage(ImageLoader.getInstance().LoadObject("/enemies/" + enemy.getType()), (int) (enemy.getX() * TileObject.getSIZE()), (int) (enemy.getY() * TileObject.getSIZE()), null);
-        for (PipeObject pipe : pipes)
+        for (Pipe pipe : pipes)
             g.drawImage(ImageLoader.getInstance().LoadObject("/pipes/" + pipe.getType()), (int) (pipe.getX() * TileObject.getSIZE()), (int) (pipe.getY() * TileObject.getSIZE()), null);
     }
 
