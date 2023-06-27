@@ -1,22 +1,18 @@
 package com.parim.model.components;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public abstract class TileObject {
+    @JsonIgnore
     protected static double SIZE;
     protected double x, y;
     protected double xVelocity, yVelocity;
-    protected String type;
     protected double speed;
 
     public TileObject(){}
-    public TileObject(double x, double y, String type){
+    public TileObject(double x, double y){
         this.x = x;
         this.y = y;
-        this.type = type;
-    }
-
-    public void move(){
-        x += xVelocity;
-        y += yVelocity;
     }
 
     // Getters and Setters
@@ -60,19 +56,15 @@ public abstract class TileObject {
         this.yVelocity = yVelocity;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public double getSpeed() {
         return speed;
     }
 
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public String getType(){
+        return this.getClass().getSimpleName();
     }
 }
