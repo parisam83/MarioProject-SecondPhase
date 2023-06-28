@@ -28,6 +28,22 @@ public class ImageLoader {
         return image;
     }
 
+    public Image LoadObject(String directory, double width, double height) {
+        if (imagesCollection.containsKey(directory)) {
+            return imagesCollection.get(directory);
+        }
+
+        Image image;
+        try {
+            image = ImageIO.read(new File("src/main/resources/objects/" + directory + ".png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        image = image.getScaledInstance((int) (width*TileObject.getSIZE()), (int) (height*TileObject.getSIZE()), Image.SCALE_SMOOTH);
+        imagesCollection.put(directory, image);
+        return image;
+    }
+
     public static ImageLoader getInstance() {
         if (instance == null) instance = new ImageLoader();
         return instance;

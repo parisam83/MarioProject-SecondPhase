@@ -51,10 +51,59 @@ public class GameController {
     }
 
     public void updateVelocity(){
+        // update Mario velocity
         keyPressed();
         keyReleased();
+
+
+        // update other Movable velocities
+        for (TileObject tileObject : allTiles)
+            if (tileObject instanceof Movable){
+                if (tileObject.getXVelocity() > 0) tileObject.setX(intersectRight(tileObject));
+            }
     }
 
+    private double intersectRight(TileObject tile1){
+        double tile1X = tile1.getXVelocity(), tile1Y = tile1.getYVelocity();
+        for (TileObject tile2 : allTiles){
+            if (tile2 == tile1) continue;
+
+            double tile2X = tile2.getXVelocity(), tile2Y = tile2.getYVelocity();
+            // if (tile1Y )
+        }
+        return tile1.getXVelocity();
+    }
+
+    private void keyPressed(){
+        boolean left = false, right = false, up = false, down = false, space = false, escape = false;
+        for (Integer e : pressedKeys){
+            if (e == KeyEvent.VK_RIGHT) right = true;
+            if (e == KeyEvent.VK_LEFT) left = true;
+            if (e == KeyEvent.VK_UP) up = true;
+            if (e == KeyEvent.VK_DOWN) down = true;
+            if (e == KeyEvent.VK_SPACE) space = true;
+            if (e == KeyEvent.VK_ESCAPE) escape = true;
+        }
+        if (right && left) marioObject.setXVelocity(0);
+        else if (right) marioObject.updateVelocityMoveRight();
+        else if (left) marioObject.updateVelocityMoveLeft();
+
+        // if (up) marioObject.updateVelocityMoveUp();
+    }
+    private void keyReleased(){
+        boolean left = false, right = false, up = false, down = false, space = false, escape = false;
+        for (Integer e : pressedKeys){
+            if (e == KeyEvent.VK_RIGHT) right = true;
+            if (e == KeyEvent.VK_LEFT) left = true;
+            if (e == KeyEvent.VK_UP) up = true;
+            if (e == KeyEvent.VK_DOWN) down = true;
+            if (e == KeyEvent.VK_SPACE) space = true;
+            if (e == KeyEvent.VK_ESCAPE) escape = true;
+        }
+        if (!right && !left) marioObject.setXVelocity(0);
+        if (!right && left) marioObject.updateVelocityMoveLeft();
+        if (!left && right) marioObject.updateVelocityMoveRight();
+    }
     public void move(){
         marioObject.move();
         for (TileObject tile : allTiles)
@@ -77,7 +126,7 @@ public class GameController {
         return instance;
     }
 
-    private void keyPressed() {
+/*    private void keyPressed() {
         boolean left = false, right = false, up = false, down = false, space = false, escape = false;
         for (Integer e : pressedKeys) {
             if (e == KeyEvent.VK_LEFT) left = true;
@@ -88,11 +137,11 @@ public class GameController {
             if (e == KeyEvent.VK_ESCAPE) escape = true;
         }
 
-        if (right) marioObject.setXVelocity(marioObject.getSpeed());
-        if (left) marioObject.setXVelocity(-marioObject.getSpeed());
-        if (up) marioObject.setYVelocity(-marioObject.getSpeed());
+        if (right) marioObject.setXVelocity(marioObject.getSPEED());
+        if (left) marioObject.setXVelocity(-marioObject.getSPEED());
+        if (up) marioObject.setYVelocity(-marioObject.getSPEED());
         // if (down) marioObject.setType(marioObject.getType() + "SITDOWN");
-        if (space) marioObject.setXVelocity(marioObject.getSpeed());
+        if (space) marioObject.setXVelocity(marioObject.getSPEED());
         if (escape){
             gameFinished = true;
             mainFrame.setContentPane(pausePanel);
@@ -100,9 +149,9 @@ public class GameController {
 
         for (TileObject tileObject : allTiles)
             tileObject.setXVelocity(-marioObject.getXVelocity());
-    }
+    }*/
 
-    private void keyReleased() {
+/*    private void keyReleased() {
         boolean left = false, right = false, up = false, down = false, space = false, escape = false;
         for (Integer e : pressedKeys) {
             if (e == KeyEvent.VK_LEFT) left = true;
@@ -118,7 +167,7 @@ public class GameController {
 
 //        for (TileObject tileObject : allTiles)
 //            tileObject.setXVelocity(-marioObject.getXVelocity());
-    }
+    }*/
 
     public void addPressedKey(Integer e){
         pressedKeys.add(e);

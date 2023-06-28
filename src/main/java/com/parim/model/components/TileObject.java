@@ -5,9 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public abstract class TileObject {
     @JsonIgnore
     protected static double SIZE;
-    protected double x, y;
+    protected double x, y, width = 1, height = 1;
     protected double xVelocity, yVelocity;
-    protected double speed;
 
     public TileObject(){}
     public TileObject(double x, double y){
@@ -40,6 +39,22 @@ public abstract class TileObject {
         this.y = y;
     }
 
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
     public double getXVelocity() {
         return xVelocity;
     }
@@ -54,14 +69,6 @@ public abstract class TileObject {
 
     public void setYVelocity(double yVelocity) {
         this.yVelocity = yVelocity;
-    }
-
-    public double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
     }
 
     public String getType(){

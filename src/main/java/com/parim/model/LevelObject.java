@@ -18,4 +18,8 @@ public class LevelObject {
     public void setSections(ArrayList<SectionObject> sections) {
         this.sections = sections;
     }
+    public void addFloors(){
+        for (SectionObject section : sections)
+            section.addFloors();
+    }
 }

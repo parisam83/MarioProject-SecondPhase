@@ -33,13 +33,13 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         TileObject.setSIZE(Toolkit.getDefaultToolkit().getScreenSize().width/(double) section.getLength());
-        g.drawImage(ImageLoader.getInstance().LoadObject("/marios/" + mario.getType()), (int) (mario.getX() * TileObject.getSIZE()), (int) (mario.getY() * TileObject.getSIZE()), null);
+        g.drawImage(ImageLoader.getInstance().LoadObject("/marios/" + mario.getType(), mario.getWidth(), mario.getHeight()), (int) (mario.getX() * TileObject.getSIZE()), (int) ((9.5 - mario.getY()+2) * TileObject.getSIZE()), null);
         for (Block block : blocks)
-            g.drawImage(ImageLoader.getInstance().LoadObject("/blocks/" + block.getType()), (int) (block.getX() * TileObject.getSIZE()), (int) (block.getY() * TileObject.getSIZE()), null);
+            g.drawImage(ImageLoader.getInstance().LoadObject("/blocks/" + block.getType(), block.getWidth(), block.getHeight()), (int) (block.getX() * TileObject.getSIZE()), (int) ((9.5 - block.getY()+2) * TileObject.getSIZE()), null);
         for (Enemy enemy : enemies)
-            g.drawImage(ImageLoader.getInstance().LoadObject("/enemies/" + enemy.getType()), (int) (enemy.getX() * TileObject.getSIZE()), (int) (enemy.getY() * TileObject.getSIZE()), null);
+            g.drawImage(ImageLoader.getInstance().LoadObject("/enemies/" + enemy.getType(), enemy.getWidth(), enemy.getHeight()), (int) (enemy.getX() * TileObject.getSIZE()), (int) ((9.5 - enemy.getY()+2) * TileObject.getSIZE()), null);
         for (Pipe pipe : pipes)
-            g.drawImage(ImageLoader.getInstance().LoadObject("/pipes/" + pipe.getType()), (int) (pipe.getX() * TileObject.getSIZE()), (int) (pipe.getY() * TileObject.getSIZE()), null);
+            g.drawImage(ImageLoader.getInstance().LoadObject("/pipes/" + pipe.getType(), pipe.getWidth(), pipe.getHeight()), (int) ((pipe.getX()-pipe.getWidth()+1) * TileObject.getSIZE()), (int) ((9.5 - pipe.getY() - pipe.getHeight()+3) * TileObject.getSIZE()), null);
     }
 
     public class KL extends KeyAdapter{

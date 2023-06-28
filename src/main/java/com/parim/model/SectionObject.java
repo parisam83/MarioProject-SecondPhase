@@ -1,6 +1,7 @@
 package com.parim.model;
 
 import com.parim.model.components.blocks.Block;
+import com.parim.model.components.blocks.Floor;
 import com.parim.model.components.enemies.Enemy;
 import com.parim.model.components.pipes.Pipe;
 
@@ -23,6 +24,14 @@ public class SectionObject {
         this.enemies = enemies;
         this.pipes = pipes;
         this.spawnPipe = spawnPipe;
+        addFloors();
+    }
+
+    public void addFloors(){
+        for (int i = 0; i < length; i++){
+            blocks.add(new Floor(i, -1));
+            blocks.add(new Floor(i, -2));
+        }
     }
 
     // Getters and Setters
