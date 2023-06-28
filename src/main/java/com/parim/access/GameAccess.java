@@ -25,6 +25,7 @@ public class GameAccess {
             try {
                 File levelFile = new File(directory + String.valueOf(i) + ".json");
                 LevelObject levelObject = mapper.readValue(levelFile, LevelObject.class);
+                levelObject.addFloors();
                 levelObjects.add(levelObject);
             } catch (IOException e) {
                 throw new RuntimeException(e);
