@@ -27,5 +27,15 @@ public abstract class Block extends TileObject {
 
     public abstract boolean limitOfHitExceeded();
 
+    // Getters and Setters
+    public void addNumberOfHits(){
+        numberOfHits++;
+    }
+    public int getNumberOfHits() {
+        return numberOfHits;
+    }
 
+    public void setNumberOfHits(int numberOfHits) {
+        this.numberOfHits = numberOfHits;
+    }
 }

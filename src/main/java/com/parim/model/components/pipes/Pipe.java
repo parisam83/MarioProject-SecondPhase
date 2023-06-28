@@ -1,5 +1,6 @@
 package com.parim.model.components.pipes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.parim.model.components.TileObject;
@@ -16,8 +17,14 @@ import com.parim.model.components.TileObject;
         @JsonSubTypes.Type(value = TelePiranhaPipe.class, name = "TELE_PIRANHA")
 })
 public class Pipe extends TileObject {
-    public Pipe(){}
+    @JsonIgnore
+    public static double WIDTH_CONSTANT = 2, HEIGHT_CONSTANT = 2;
+    public Pipe(){
+        // width = height = 2;
+    }
+
     public Pipe(double x, double y) {
         super(x, y);
+        // width = height = 2;
     }
 }
