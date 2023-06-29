@@ -9,13 +9,16 @@ import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class QuestionBlock extends Block implements Convertible {
-    public static int LIMIT_OF_HITS = 1, SCORE = 1, COIN = 0;
+    public static int LIMIT_OF_HITS = 1;
     private ItemType item;
 
-    public QuestionBlock() {}
+    public QuestionBlock() {
+        SCORE = 1;
+    }
 
     public QuestionBlock(double x, double y){
         super(x, y);
+        SCORE = 1;
     }
     @Override
     public boolean limitOfHitExceeded() {

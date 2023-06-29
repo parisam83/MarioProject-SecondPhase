@@ -10,9 +10,12 @@ public class Mushroom extends Item implements HasTimeBeforeMove {
     public static double SPEED_RIGHT = MarioObject.SPEED_RIGHT/2;
     private int timePassed = 0;
 
-    public Mushroom(){}
+    public Mushroom(){
+        SCORE = 30;
+    }
     public Mushroom(double x, double y){
         super(x, y);
+        SCORE = 30;
     }
 
     @Override

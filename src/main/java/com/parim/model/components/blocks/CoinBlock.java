@@ -7,13 +7,15 @@ import com.parim.model.interfaces.Convertible;
 import java.util.ArrayList;
 
 public class CoinBlock extends Block implements Convertible {
-    public static int LIMIT_OF_HITS = 1, SCORE = 1, COIN = 0;
+    public static int LIMIT_OF_HITS = 1;
 
     public CoinBlock() {
+        SCORE = 1;
     }
 
     public CoinBlock(double x, double y) {
         super(x, y);
+        SCORE = 1;
     }
 
     @Override

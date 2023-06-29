@@ -8,9 +8,12 @@ public class Star extends Item implements HasTimeBeforeMove {
     public static double SPEED_RIGHT = MarioObject.SPEED_RIGHT/2;
     private int timePassed = 0;
 
-    public Star(){}
+    public Star(){
+        SCORE = 40;
+    }
     public Star(double x, double y){
         super(x, y);
+        SCORE = 40;
     }
 
     @Override
