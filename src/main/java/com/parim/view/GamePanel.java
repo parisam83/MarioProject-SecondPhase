@@ -44,10 +44,8 @@ public class GamePanel extends JPanel {
         for (Pipe pipe : pipes)
             g.drawImage(ImageLoader.getInstance().LoadObject("/pipes/" + pipe.getType(), pipe.getWidth(), pipe.getHeight()), (int) ((pipe.getX()-pipe.getWidth()+1) * TileObject.getSIZE()), (int) ((9.5 - pipe.getY() - pipe.getHeight()+3) * TileObject.getSIZE()), null);
         if (items.size() > 0)
-            for (Item item : items) {
-                System.out.println(items.size());
+            for (Item item : items)
                 g.drawImage(ImageLoader.getInstance().LoadObject("/items/" + item.getType(), item.getWidth(), item.getHeight()), (int) ((item.getX()) * TileObject.getSIZE()), (int) ((9.5 - item.getY() - item.getHeight() + 3) * TileObject.getSIZE()), null);
-            }
     }
 
     private void updateTiles() {
