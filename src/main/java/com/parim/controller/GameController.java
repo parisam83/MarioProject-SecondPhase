@@ -134,8 +134,6 @@ public class GameController {
         // update Mario velocity
         keyPressed();
         keyReleased();
-        if (marioObject.getY() >= marioObject.getInitialYBeforeJump() + 5)
-            marioObject.updateVelocityMoveDown();
     }
 
     private void keyPressed(){

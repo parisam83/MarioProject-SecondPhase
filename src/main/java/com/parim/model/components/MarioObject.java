@@ -22,8 +22,8 @@ public class MarioObject extends TileObject implements Movable {
 
     @Override
     public void move() {
-        if (!marioHasIntersectDown && initialYBeforeJump == y && y > 0)
-            updateVelocityMoveDown();
+        if (!marioHasIntersectDown && initialYBeforeJump == y && y > 0) updateVelocityMoveDown();
+        if (y >= initialYBeforeJump + 5) updateVelocityMoveDown();
         x += xVelocity;
         y += yVelocity;
     }
