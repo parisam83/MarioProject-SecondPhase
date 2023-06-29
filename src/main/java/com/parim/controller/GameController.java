@@ -1,6 +1,7 @@
 package com.parim.controller;
 
 import com.parim.access.GameAccess;
+import com.parim.controller.Collision.MarioCollision;
 import com.parim.model.GameObject;
 import com.parim.model.SectionObject;
 import com.parim.model.components.MarioObject;
@@ -9,7 +10,6 @@ import com.parim.model.components.blocks.Block;
 import com.parim.model.components.enemies.Enemy;
 import com.parim.model.components.items.Item;
 import com.parim.model.components.pipes.Pipe;
-import com.parim.model.interfaces.Convertible;
 import com.parim.model.interfaces.Movable;
 import com.parim.view.GamePanel;
 import com.parim.view.MainFrame;
@@ -84,7 +84,7 @@ public class GameController {
 
     private void checkCollision() {
         down = false;
-        marioCollision();
+        new MarioCollision();
         itemCollision();
     }
 
@@ -106,79 +106,7 @@ public class GameController {
         }
     }
 
-    private void marioCollision() {
-        blockMarioCollision();
-        pipeMarioCollision();
-        enemyMarioCollision();
-        itemMarioCollision();
-    }
-
-    private void itemMarioCollision() {
-        for (Item item : items)
-            if (intersectUp(marioObject, item) || intersectDown(marioObject, item) || intersectRight(marioObject, item) || intersectLeft(marioObject, item)) {
-                // TODO: item added to mario and disappears!
-            }
-    }
-
-    private void blockMarioCollision() {
-        for (Block block : blocks) {
-            if (intersectRight(marioObject, block))
-                marioObject.setX(block.getX() - 1);
-            if (intersectLeft(marioObject, block))
-                marioObject.setX(block.getX() + 1);
-            if (intersectDown(marioObject, block)) {
-                down = true;
-                marioObject.setY(block.getY() + 1);
-                marioObject.setYVelocity(0);
-                marioObject.setInitialYBeforeJump(marioObject.getY());
-            }
-
-            if (!down && marioObject.getInitialYBeforeJump() == marioObject.getY() && marioObject.getY() > 0)
-                marioObject.updateVelocityMoveDown();
-
-            if (intersectUp(marioObject, block)){
-                marioObject.setY(block.getY() - 1);
-                marioObject.updateVelocityMoveDown();
-                block.addNumberOfHits();
-                if (block instanceof Convertible && block.limitOfHitExceeded()){
-                    ArrayList<TileObject> list = ((Convertible) block).convert();
-                    tilesToRemove.add(block);
-                    tilesToAdd.addAll(list);
-                }
-            }
-        }
-    }
-    private void pipeMarioCollision() {
-        for (Pipe pipe : pipes){
-            if (intersectRight(marioObject, pipe))
-                marioObject.setX(pipe.getX() - 1);
-            if (intersectLeft(marioObject, pipe))
-                marioObject.setX(pipe.getX() + 1);
-
-            if (intersectDown(marioObject, pipe)){
-                down = true;
-                marioObject.setY(pipe.getY() + 1);
-                marioObject.setYVelocity(0);
-                marioObject.setInitialYBeforeJump(marioObject.getY());
-            }
-            if (intersectUp(marioObject, pipe))
-                marioObject.setY(pipe.getY() - 1);
-
-            if (!down && marioObject.getInitialYBeforeJump() == marioObject.getY() && marioObject.getY() > 0)
-                marioObject.updateVelocityMoveDown();
-        }
-    }
-    private void enemyMarioCollision(){
-        for (Enemy enemy : enemies){
-            if (intersectUp(marioObject, enemy)){
-                // TODO: enemy dies
-            }
-            if (intersectRight(marioObject, enemy) || intersectLeft(marioObject, enemy) || intersectDown(marioObject, enemy)) {
-                // TODO: mario dies
-            }
-        }
-    }
-    private boolean intersectRight(TileObject tile1, TileObject tile2){
+    public boolean intersectRight(TileObject tile1, TileObject tile2){
         double dx = tile1.getX() - tile2.getX();
         double dy = tile1.getY() - tile2.getY();
 
@@ -189,7 +117,7 @@ public class GameController {
         }
         return false;
     }
-    private boolean intersectLeft(TileObject tile1, TileObject tile2){
+    public boolean intersectLeft(TileObject tile1, TileObject tile2){
         double dx = tile1.getX() - tile2.getX();
         double dy = tile1.getY() - tile2.getY();
 
@@ -200,7 +128,7 @@ public class GameController {
         }
         return false;
     }
-    private boolean intersectUp(TileObject tile1, TileObject tile2){
+    public boolean intersectUp(TileObject tile1, TileObject tile2){
         double dx = tile1.getX() - tile2.getX();
         double dy = tile1.getY() - tile2.getY();
 
@@ -209,7 +137,7 @@ public class GameController {
                 if (dy < 0) return true;
         return false;
     }
-    private boolean intersectDown(TileObject tile1, TileObject tile2){
+    public boolean intersectDown(TileObject tile1, TileObject tile2){
         double dx = tile1.getX() - tile2.getX();
         double dy = tile1.getY() - tile2.getY();
 
@@ -316,6 +244,22 @@ public class GameController {
             }*/
     }
 
+
+    public void marioKillsEnemy(Enemy enemy){
+        // TODO
+    }
+    public void marioDiedByEnemy(){
+        // TODO
+    }
+    public void marioAteItem(Item item){
+        // TODO
+    }
+    public void addTileToRemove(TileObject tileObject){
+        tilesToRemove.remove(tileObject);
+    }
+    public void addTilesToAdd(ArrayList<TileObject> tiles){
+        tilesToAdd.addAll(tiles);
+    }
     // Getters and Setters
 
     public ArrayList<TileObject> getAllTiles() {
@@ -372,5 +316,9 @@ public class GameController {
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
+    }
+
+    public MarioObject getMarioObject() {
+        return marioObject;
     }
 }
