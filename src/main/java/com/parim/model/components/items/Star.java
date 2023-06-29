@@ -23,7 +23,7 @@ public class Star extends Item implements HasTimeBeforeMove {
 
     @Override
     public void enableMoveIfPossible() {
-        if (ticksPassed >= TIME*60)
+        if (ticksPassed == TIME*60)
             xVelocity = SPEED_RIGHT;
     }
 }
