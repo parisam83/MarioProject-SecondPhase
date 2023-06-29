@@ -36,6 +36,7 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         updateTiles();
         TileObject.setSIZE(Toolkit.getDefaultToolkit().getScreenSize().width/(double) section.getLength());
+        // TODO: change mario direction when velocity is manfi
         g.drawImage(ImageLoader.getInstance().LoadObject("/marios/" + mario.getType(), mario.getWidth(), mario.getHeight()), (int) (mario.getX() * TileObject.getSIZE()), (int) ((9.5 - mario.getY()+2) * TileObject.getSIZE()), null);
         for (Block block : blocks)
             g.drawImage(ImageLoader.getInstance().LoadObject("/blocks/" + block.getType(), block.getWidth(), block.getHeight()), (int) (block.getX() * TileObject.getSIZE()), (int) ((9.5 - block.getY() + 2) * TileObject.getSIZE()), null);
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel {
     }
 
     private void updateTiles() {
+        mario = GameController.getInstance().getMarioObject();
         blocks = GameController.getInstance().getBlocks();
         pipes = GameController.getInstance().getPipes();
         enemies = GameController.getInstance().getEnemies();

@@ -5,6 +5,7 @@ import com.parim.model.components.MarioObject;
 import com.parim.model.components.TileObject;
 import com.parim.model.components.blocks.Block;
 import com.parim.model.components.enemies.Enemy;
+import com.parim.model.components.enemies.Spiny;
 import com.parim.model.components.items.Item;
 import com.parim.model.components.pipes.Pipe;
 import com.parim.model.interfaces.Convertible;
@@ -60,10 +61,13 @@ public class MarioCollision {
     }
     private void enemyMarioCollision(){
         for (Enemy enemy : enemies){
-            if (gc.intersectUp(mario, enemy))
-                gc.marioKillsEnemy(enemy);
-            else if (gc.intersectRight(mario, enemy) || gc.intersectLeft(mario, enemy) || gc.intersectDown(mario, enemy))
+            if (gc.intersectDown(mario, enemy)) {
+                if (!(enemy instanceof Spiny))
+                    gc.marioKillsEnemy(enemy);
+            }
+            if (gc.intersectRight(mario, enemy) || gc.intersectLeft(mario, enemy) || gc.intersectUp(mario, enemy)) {
                 gc.marioDiedByEnemy();
+            }
         }
     }
     private void itemMarioCollision(){

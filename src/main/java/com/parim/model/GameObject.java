@@ -24,6 +24,10 @@ public class GameObject {
     public void addCoins(int x){
         coins += x;
     }
+    public MarioObject resetMario(){
+        return mario = new MarioObject(1, 0);
+    }
+
     // Getters and Setters
     public ArrayList<LevelObject> getLevels() {
         return levels;

@@ -228,10 +228,12 @@ public class GameController {
 
     public void marioKillsEnemy(Enemy enemy){
         addMarioPoints(enemy);
-        // TODO
+        tilesToRemove.add(enemy);
     }
     public void marioDiedByEnemy(){
-        // TODO
+        tilesToRemove.add(marioObject);
+        marioObject = gameObject.resetMario();
+        tilesToAdd.add(marioObject);
     }
     public void marioAteItem(Item item){
         addMarioPoints(item);
