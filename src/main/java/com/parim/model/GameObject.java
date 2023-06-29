@@ -25,6 +25,7 @@ public class GameObject {
         coins += x;
     }
     public MarioObject resetMario(){
+        hearts--;
         return mario = new MarioObject(1, 0);
     }
 
