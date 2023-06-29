@@ -227,22 +227,30 @@ public class GameController {
 
 
     public void marioKillsEnemy(Enemy enemy){
+        addMarioPoints(enemy);
         // TODO
     }
     public void marioDiedByEnemy(){
         // TODO
     }
     public void marioAteItem(Item item){
-        // TODO
+        addMarioPoints(item);
+        tilesToRemove.add(item);
     }
+
+    private void addMarioPoints(TileObject tile) {
+        gameObject.addCoins(tile.COIN);
+        gameObject.addScore(tile.SCORE);
+    }
+
     public void addTileToRemove(TileObject tileObject){
         tilesToRemove.add(tileObject);
     }
     public void addTilesToAdd(ArrayList<TileObject> tiles){
         tilesToAdd.addAll(tiles);
     }
-    // Getters and Setters
 
+    // Getters and Setters
     public ArrayList<TileObject> getAllTiles() {
         return allTiles;
     }

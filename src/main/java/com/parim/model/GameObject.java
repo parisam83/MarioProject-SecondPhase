@@ -18,6 +18,12 @@ public class GameObject {
         currentSection = currentLevel.getSections().get(0);
     }
 
+    public void addScore(int x){
+        score += x;
+    }
+    public void addCoins(int x){
+        coins += x;
+    }
     // Getters and Setters
     public ArrayList<LevelObject> getLevels() {
         return levels;
