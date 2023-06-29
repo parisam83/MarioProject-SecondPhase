@@ -14,7 +14,7 @@ public enum ItemType {
     }
 
     public static ItemType randomItem(){
-        int randomNumber = ThreadLocalRandom.current().nextInt(1, (2 + 5 + 3 + 1) + 1);
+        int randomNumber = ThreadLocalRandom.current().nextInt(1, (COIN.weight + STAR.weight + MUSHROOM.weight + FLOWER.weight) + 1);
         if (randomNumber <= COIN.weight) return COIN;
         if (randomNumber <= COIN.weight + STAR.weight) return STAR;
         if (randomNumber <= COIN.weight + STAR.weight + MUSHROOM.weight) return MUSHROOM;
