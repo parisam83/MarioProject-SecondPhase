@@ -1,6 +1,7 @@
 package com.parim.controller;
 
 import com.parim.access.GameAccess;
+import com.parim.controller.Collision.ItemCollision;
 import com.parim.controller.Collision.MarioCollision;
 import com.parim.model.GameObject;
 import com.parim.model.SectionObject;
@@ -85,25 +86,7 @@ public class GameController {
     private void checkCollision() {
         down = false;
         new MarioCollision();
-        itemCollision();
-    }
-
-    private void itemCollision() {
-        itemBlockCollision();
-    }
-
-    private void itemBlockCollision() {
-        for (Item item : items) {
-            boolean gravity = true;
-            for (Block block : blocks)
-                if (intersectDown(item, block)) {
-                    gravity = false;
-                    item.setYVelocity(0);
-                }
-
-            if (gravity) item.activateGravity();
-            else item.deactivateGravity();
-        }
+        new ItemCollision();
     }
 
     public boolean intersectRight(TileObject tile1, TileObject tile2){
@@ -255,7 +238,7 @@ public class GameController {
         // TODO
     }
     public void addTileToRemove(TileObject tileObject){
-        tilesToRemove.remove(tileObject);
+        tilesToRemove.add(tileObject);
     }
     public void addTilesToAdd(ArrayList<TileObject> tiles){
         tilesToAdd.addAll(tiles);
