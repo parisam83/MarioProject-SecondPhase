@@ -7,6 +7,7 @@ import com.parim.model.components.MarioObject;
 import com.parim.model.components.TileObject;
 import com.parim.model.components.blocks.Block;
 import com.parim.model.components.enemies.Enemy;
+import com.parim.model.components.items.Item;
 import com.parim.model.components.pipes.Pipe;
 import com.parim.model.interfaces.Convertible;
 import com.parim.model.interfaces.Movable;
@@ -31,6 +32,7 @@ public class GameController {
     private ArrayList<Block> blocks = new ArrayList<>();
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<Pipe> pipes = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
     private Set<Integer> pressedKeys = new HashSet<>();
     private double diff = 0.0001;
     private boolean down = false;
@@ -67,18 +69,55 @@ public class GameController {
             if (tile instanceof Block) blocks.add((Block) tile);
             else if (tile instanceof Pipe) pipes.add((Pipe) tile);
             else if (tile instanceof Enemy) enemies.add((Enemy) tile);
+            else if (tile instanceof Item) items.add((Item) tile);
         }
         for (TileObject tile : tilesToRemove) {
             if (tile instanceof Block) blocks.remove((Block) tile);
             else if (tile instanceof Pipe) pipes.remove((Pipe) tile);
             else if (tile instanceof Enemy) enemies.remove((Enemy) tile);
+            else if (tile instanceof Item) items.remove((Item) tile);
         }
+
+        tilesToRemove.clear();
+        tilesToAdd.clear();
     }
 
     private void checkCollision() {
         down = false;
+        marioCollision();
+        itemCollision();
+    }
+
+    private void itemCollision() {
+        itemBlockCollision();
+    }
+
+    private void itemBlockCollision() {
+        for (Item item : items) {
+            boolean gravity = true;
+            for (Block block : blocks)
+                if (intersectDown(item, block)) {
+                    gravity = false;
+                    item.setYVelocity(0);
+                }
+
+            if (gravity) item.activateGravity();
+            else item.deactivateGravity();
+        }
+    }
+
+    private void marioCollision() {
         blockMarioCollision();
         pipeMarioCollision();
+        enemyMarioCollision();
+        itemMarioCollision();
+    }
+
+    private void itemMarioCollision() {
+        for (Item item : items)
+            if (intersectUp(marioObject, item) || intersectDown(marioObject, item) || intersectRight(marioObject, item) || intersectLeft(marioObject, item)) {
+                // TODO: item added to mario and disappears!
+            }
     }
 
     private void blockMarioCollision() {
@@ -129,6 +168,16 @@ public class GameController {
                 marioObject.updateVelocityMoveDown();
         }
     }
+    private void enemyMarioCollision(){
+        for (Enemy enemy : enemies){
+            if (intersectUp(marioObject, enemy)){
+                // TODO: enemy dies
+            }
+            if (intersectRight(marioObject, enemy) || intersectLeft(marioObject, enemy) || intersectDown(marioObject, enemy)) {
+                // TODO: mario dies
+            }
+        }
+    }
     private boolean intersectRight(TileObject tile1, TileObject tile2){
         double dx = tile1.getX() - tile2.getX();
         double dy = tile1.getY() - tile2.getY();
@@ -174,17 +223,8 @@ public class GameController {
         // update Mario velocity
         keyPressed();
         keyReleased();
-        if (marioObject.getY() >= marioObject.getInitialYBeforeJump() + 5) {
-            // System.out.println("Hi");
+        if (marioObject.getY() >= marioObject.getInitialYBeforeJump() + 5)
             marioObject.updateVelocityMoveDown();
-        }
-
-/*        // update other Movable velocities
-        for (TileObject tileObject : allTiles)
-            if (tileObject instanceof Movable){
-                if (intersectRight())
-                if (tileObject.getXVelocity() > 0) tileObject.setX(intersectRight(tileObject));
-            }*/
     }
 
     private void keyPressed(){
@@ -324,5 +364,13 @@ public class GameController {
 
     public void setPipes(ArrayList<Pipe> pipes) {
         this.pipes = pipes;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
     }
 }
