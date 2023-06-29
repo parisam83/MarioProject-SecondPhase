@@ -8,7 +8,7 @@ import com.parim.model.interfaces.Movable;
 public class Mushroom extends Item implements HasTimeBeforeMove {
     public static int TIME = 3;
     public static double SPEED_RIGHT = MarioObject.SPEED_RIGHT/2;
-    private int timePassed = 0;
+    private int ticksPassed = 0;
 
     public Mushroom(){
         SCORE = 30;
@@ -19,12 +19,13 @@ public class Mushroom extends Item implements HasTimeBeforeMove {
     }
 
     @Override
-    public void updateTimePassed(){
-        timePassed++;
+    public void updateTicksPassed(){
+        ticksPassed++;
     }
 
     @Override
-    public boolean canMove() {
-        return timePassed == TIME;
+    public void enableMoveIfPossible() {
+        if (ticksPassed >= TIME*60)
+            xVelocity = SPEED_RIGHT;
     }
 }

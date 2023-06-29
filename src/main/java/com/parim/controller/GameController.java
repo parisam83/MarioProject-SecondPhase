@@ -11,6 +11,7 @@ import com.parim.model.components.blocks.Block;
 import com.parim.model.components.enemies.Enemy;
 import com.parim.model.components.items.Item;
 import com.parim.model.components.pipes.Pipe;
+import com.parim.model.interfaces.HasTimeBeforeMove;
 import com.parim.model.interfaces.Movable;
 import com.parim.view.GamePanel;
 import com.parim.view.MainFrame;
@@ -56,10 +57,17 @@ public class GameController {
             move();
             checkCollision();
             updateTiles();
+            updateTimeOfTiles();
             gamePanel.requestFocus();
             mainFrame.repaint();
             mainFrame.revalidate();
         }
+    }
+
+    private void updateTimeOfTiles() {
+        for (TileObject tile : allTiles)
+            if (tile instanceof HasTimeBeforeMove)
+                ((HasTimeBeforeMove) tile).updateTicksPassed();
     }
 
     private void updateTiles() {
@@ -172,9 +180,12 @@ public class GameController {
         if (!left && right) marioObject.updateVelocityMoveRight();
     }
     public void move(){
-        for (TileObject tile : allTiles)
+        for (TileObject tile : allTiles) {
+            if (tile instanceof HasTimeBeforeMove)
+                ((HasTimeBeforeMove) tile).enableMoveIfPossible();
             if (tile instanceof Movable)
                 ((Movable) tile).move();
+        }
     }
     public void sleep(){
         try {
@@ -232,9 +243,18 @@ public class GameController {
     }
     public void marioDiedByEnemy(){
         tilesToRemove.add(marioObject);
+        if (gameObject.getHearts() == 0){
+            gameOver();
+            return;
+        }
         marioObject = gameObject.resetMario();
         tilesToAdd.add(marioObject);
     }
+
+    private void gameOver() {
+        // TODO
+    }
+
     public void marioAteItem(Item item){
         addMarioPoints(item);
         tilesToRemove.add(item);
