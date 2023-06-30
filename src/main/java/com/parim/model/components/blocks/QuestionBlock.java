@@ -9,13 +9,16 @@ import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class QuestionBlock extends Block implements Convertible {
-    public static int LIMIT_OF_HITS = 1, SCORE = 1, COIN = 0;
+    public static int LIMIT_OF_HITS = 1;
     private ItemType item;
 
-    public QuestionBlock() {}
+    public QuestionBlock() {
+        SCORE = 1;
+    }
 
     public QuestionBlock(double x, double y){
         super(x, y);
+        SCORE = 1;
     }
     @Override
     public boolean limitOfHitExceeded() {
@@ -28,13 +31,14 @@ public class QuestionBlock extends Block implements Convertible {
 
         return new ArrayList<TileObject>(){{
             add(instanceOfItem());
+            add(new EmptyBlock(x, y));
         }};
     }
 
     private TileObject instanceOfItem(){
-        if (item == ItemType.COIN) return new Coin(x, y - SIZE);
-        else if (item == ItemType.STAR) return new Star(x, y - SIZE);
-        else if (item == ItemType.MUSHROOM) return new Mushroom(x, y - SIZE);
-        else return new Flower(x, y - SIZE);
+        if (item == ItemType.COIN) return new Coin(x, y + 1);
+        else if (item == ItemType.STAR) return new Star(x, y + 1);
+        else if (item == ItemType.MUSHROOM) return new Mushroom(x, y + 1);
+        else return new Flower(x, y + 1);
     }
 }

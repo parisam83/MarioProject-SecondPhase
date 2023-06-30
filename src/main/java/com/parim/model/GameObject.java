@@ -18,6 +18,17 @@ public class GameObject {
         currentSection = currentLevel.getSections().get(0);
     }
 
+    public void addScore(int x){
+        score += x;
+    }
+    public void addCoins(int x){
+        coins += x;
+    }
+    public MarioObject resetMario(){
+        hearts--;
+        return mario = new MarioObject(1, 0);
+    }
+
     // Getters and Setters
     public ArrayList<LevelObject> getLevels() {
         return levels;

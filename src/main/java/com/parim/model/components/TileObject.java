@@ -7,6 +7,7 @@ public abstract class TileObject {
     protected static double SIZE;
     protected double x, y, width = 1, height = 1;
     protected double xVelocity, yVelocity;
+    public int SCORE, COIN;
 
     public TileObject(){}
     public TileObject(double x, double y){

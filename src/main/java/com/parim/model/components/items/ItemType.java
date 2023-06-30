@@ -3,10 +3,10 @@ package com.parim.model.components.items;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum ItemType {
-    COIN(2),
-    STAR(5),
-    MUSHROOM(3),
-    FLOWER(1);
+    COIN(5),
+    STAR(1),
+    MUSHROOM(2),
+    FLOWER(3);
 
     private final int weight;
     ItemType(int weight){
@@ -14,7 +14,7 @@ public enum ItemType {
     }
 
     public static ItemType randomItem(){
-        int randomNumber = ThreadLocalRandom.current().nextInt(1, (2 + 5 + 3 + 1) + 1);
+        int randomNumber = ThreadLocalRandom.current().nextInt(1, (COIN.weight + STAR.weight + MUSHROOM.weight + FLOWER.weight) + 1);
         if (randomNumber <= COIN.weight) return COIN;
         if (randomNumber <= COIN.weight + STAR.weight) return STAR;
         if (randomNumber <= COIN.weight + STAR.weight + MUSHROOM.weight) return MUSHROOM;

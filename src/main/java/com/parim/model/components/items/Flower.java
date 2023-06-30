@@ -1,10 +1,13 @@
 package com.parim.model.components.items;
 
-public class Flower extends Item {
-    public static int SCORE = 20, COIN = 0;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-    public Flower(){}
+public class Flower extends Item {
+    public Flower(){
+        SCORE = 20;
+    }
     public Flower(double x, double y){
         super(x, y);
+        SCORE = 20;
     }
 }

@@ -7,6 +7,8 @@ public class MarioObject extends TileObject implements Movable {
     public static double SPEED_RIGHT = 0.1, SPEED_UP = 0.1;
     @JsonIgnore
     private double initialYBeforeJump;
+    @JsonIgnore
+    private boolean marioHasIntersectDown = false;
 
     public MarioObject(double x, double y) {
         super(x, y);
@@ -20,6 +22,8 @@ public class MarioObject extends TileObject implements Movable {
 
     @Override
     public void move() {
+        if (!marioHasIntersectDown && initialYBeforeJump == y && y > 0) updateVelocityMoveDown();
+        if (y >= initialYBeforeJump + 5) updateVelocityMoveDown();
         x += xVelocity;
         y += yVelocity;
     }
@@ -44,6 +48,12 @@ public class MarioObject extends TileObject implements Movable {
         yVelocity = -SPEED_UP;
     }
 
+    public void marioHadIntersectDown(){
+        marioHasIntersectDown = true;
+        yVelocity = 0;
+        initialYBeforeJump = y;
+    }
+
     // Getters and Setters
 
     public double getInitialYBeforeJump() {
@@ -52,5 +62,13 @@ public class MarioObject extends TileObject implements Movable {
 
     public void setInitialYBeforeJump(double initialYBeforeJump) {
         this.initialYBeforeJump = initialYBeforeJump;
+    }
+
+    public boolean isMarioHasIntersectDown() {
+        return marioHasIntersectDown;
+    }
+
+    public void setMarioHasIntersectDown(boolean marioHasIntersectDown) {
+        this.marioHasIntersectDown = marioHasIntersectDown;
     }
 }
