@@ -1,5 +1,6 @@
 package com.parim.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.parim.model.components.MarioObject;
 
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ public class GameObject {
     private MarioObject mario = new MarioObject(1, 0);
     private LevelObject currentLevel;
     private SectionObject currentSection;
+    @JsonIgnore
+    private int time = 0;
 
     public GameObject(ArrayList<LevelObject> levels) {
         this.levels = levels;
@@ -27,6 +30,10 @@ public class GameObject {
     public MarioObject resetMario(){
         hearts--;
         return mario = new MarioObject(1, 0);
+    }
+
+    public void updateTime(){
+        time++;
     }
 
     // Getters and Setters
@@ -92,5 +99,19 @@ public class GameObject {
 
     public void setCurrentSection(SectionObject currentSection) {
         this.currentSection = currentSection;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public String calculateGameState() {
+        int level = levels.indexOf(currentLevel) + 1;
+        int section = currentLevel.getSections().indexOf(currentSection) + 1;
+        return "" + level + "-" + section;
     }
 }

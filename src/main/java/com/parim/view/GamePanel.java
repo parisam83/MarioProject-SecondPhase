@@ -36,6 +36,7 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         updateTiles();
+        GameLogs.draw(g, game.getScore(), game.getCoins(), game.calculateGameState(), game.getTime(), game.getHearts());
         TileObject.setSIZE(Toolkit.getDefaultToolkit().getScreenSize().width/(double) section.getLength());
         // TODO: change mario direction when velocity is manfi
         g.drawImage(ImageLoader.getInstance().LoadObject("/marios/" + mario.getType(), mario.getWidth(), mario.getHeight()), (int) (mario.getX() * TileObject.getSIZE()), (int) ((9.5 - mario.getY()+2) * TileObject.getSIZE()), null);
