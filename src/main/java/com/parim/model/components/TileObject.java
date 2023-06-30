@@ -3,9 +3,9 @@ package com.parim.model.components;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class TileObject {
+    protected double x, y;
     @JsonIgnore
     protected static double SIZE;
-    protected double x, y;
     @JsonIgnore
     private double width = 1, height = 1;
     @JsonIgnore

@@ -1,5 +1,6 @@
 package com.parim.model.components.blocks;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.parim.model.components.TileObject;
 import com.parim.model.components.items.*;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class QuestionBlock extends Block implements Convertible {
+    @JsonIgnore
     public static int LIMIT_OF_HITS = 1;
     private ItemType item;
 

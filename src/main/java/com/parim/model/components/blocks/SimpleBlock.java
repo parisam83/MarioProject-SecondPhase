@@ -1,6 +1,9 @@
 package com.parim.model.components.blocks;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class SimpleBlock extends Block {
+    @JsonIgnore
     public static int LIMIT_OF_HITS = 1;
 
     public SimpleBlock() {

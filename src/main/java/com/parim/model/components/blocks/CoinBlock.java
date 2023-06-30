@@ -1,5 +1,6 @@
 package com.parim.model.components.blocks;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.parim.model.components.TileObject;
 import com.parim.model.components.items.Coin;
 import com.parim.model.interfaces.Convertible;
@@ -7,6 +8,7 @@ import com.parim.model.interfaces.Convertible;
 import java.util.ArrayList;
 
 public class CoinBlock extends Block implements Convertible {
+    @JsonIgnore
     public static int LIMIT_OF_HITS = 1;
 
     public CoinBlock() {
