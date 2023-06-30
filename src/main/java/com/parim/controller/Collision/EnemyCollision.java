@@ -21,7 +21,7 @@ public class EnemyCollision {
 
     public void enemyTilesExceptMarioCollision(){
         for (Enemy enemy : enemies) {
-            if (enemy.getYVelocity() <= 0) enemy.activateGravity();
+            if (enemy.GetYVelocity() <= 0) enemy.activateGravity();
             for (TileObject tile : tilesExceptMario){
                 if (enemy == tile) continue;
                 if (gc.intersectRight(enemy, tile)) {

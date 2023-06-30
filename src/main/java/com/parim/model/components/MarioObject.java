@@ -16,7 +16,7 @@ public class MarioObject extends TileObject implements Movable {
     }
 
     @Override
-    public String getType() {
+    public String GetType() {
         return "MINI"; // TODO
     }
 
