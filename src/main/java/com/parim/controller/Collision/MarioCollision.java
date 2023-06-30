@@ -8,6 +8,8 @@ import com.parim.model.components.enemies.Enemy;
 import com.parim.model.components.enemies.Spiny;
 import com.parim.model.components.items.Item;
 import com.parim.model.components.pipes.Pipe;
+import com.parim.model.components.pipes.PiranhaTrapPipe;
+import com.parim.model.components.pipes.TelePiranhaPipe;
 import com.parim.model.interfaces.Convertible;
 
 import java.util.ArrayList;
@@ -50,6 +52,9 @@ public class MarioCollision {
     }
     private void pipeMarioCollision(){
         for (Pipe pipe : pipes){
+            if (pipe instanceof PiranhaTrapPipe || pipe instanceof TelePiranhaPipe)
+                if (gc.intersectRight(mario, pipe) || gc.intersectLeft(mario, pipe) || gc.intersectUp(mario, pipe) || gc.intersectDown(mario, pipe))
+                    gc.marioDiedByEnemy();
             if (gc.intersectRight(mario, pipe)) mario.setX(pipe.getX() - 1);
             if (gc.intersectLeft(mario, pipe)) mario.setX(pipe.getX() + 1);
             if (gc.intersectUp(mario, pipe)) mario.setY(pipe.getY() - 1);
