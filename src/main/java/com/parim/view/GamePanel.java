@@ -26,6 +26,7 @@ public class GamePanel extends JPanel {
     private ArrayList<Item> items = new ArrayList<>();
 
     public GamePanel(){
+        this.setBackground(Color.decode("#8EA3FF"));
         this.setLayout(null);
         this.setFocusable(true);
         this.addKeyListener(new KL());
