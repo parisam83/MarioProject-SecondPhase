@@ -37,7 +37,7 @@ public class Star extends Item implements HasTimeBeforeMove {
             starHasIntersectDownWithFloor = true;
             // System.out.println("star is comming down");
             if (tmp == 0) updateVelocityMoveRight();
-            else xVelocity = tmp;
+            else xVelocity = -tmp;
             yVelocity = 0;
         }
 /*        if (timeStarCameToFloor == ticksPassed){
