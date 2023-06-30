@@ -18,6 +18,7 @@ import com.parim.model.interfaces.Movable;
 import com.parim.view.GamePanel;
 import com.parim.view.MainFrame;
 import com.parim.view.PausePanel;
+import com.parim.view.WinPanel;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -93,6 +94,7 @@ public class GameController {
 
     private void marioWon() {
         // TODO
+        mainFrame.setContentPane(new WinPanel());
     }
 
     public void saveSectionToGameObject(){
