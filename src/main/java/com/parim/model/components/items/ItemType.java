@@ -3,10 +3,10 @@ package com.parim.model.components.items;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum ItemType {
-    COIN(2),
-    STAR(5),
-    MUSHROOM(3),
-    FLOWER(1);
+    COIN(0),
+    STAR(1),
+    MUSHROOM(0),
+    FLOWER(0);
 
     private final int weight;
     ItemType(int weight){

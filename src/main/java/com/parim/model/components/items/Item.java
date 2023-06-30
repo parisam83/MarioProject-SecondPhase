@@ -21,7 +21,7 @@ public abstract class Item extends TileObject implements Movable, HasGravity {
     @Override
     public void move(){
         if (gravity) yVelocity = -SPEED_UP;
-        x += xVelocity;
+        if (yVelocity == 0) x += xVelocity;
         y += yVelocity;
     }
 

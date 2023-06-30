@@ -2,7 +2,10 @@ package com.parim.controller.Collision;
 
 import com.parim.controller.GameController;
 import com.parim.model.components.TileObject;
+import com.parim.model.components.blocks.Block;
+import com.parim.model.components.blocks.Floor;
 import com.parim.model.components.items.Item;
+import com.parim.model.components.items.Star;
 
 import java.util.ArrayList;
 
@@ -17,19 +20,18 @@ public class ItemCollision {
     }};
 
     public ItemCollision(){
+        starFloorCollision();
         itemTilesExceptMarioCollision();
     }
 
     public void itemTilesExceptMarioCollision(){
         for (Item item : items){
-            item.activateGravity();
+            if (!(item instanceof Star) && item.getYVelocity() <= 0) item.activateGravity();
             for (TileObject tile : tilesExceptMario){
                 if (item == tile) continue;
                 if (gc.intersectRight(item, tile)) {
-                    System.out.println("intersect Right" + item);
                     item.setX(tile.getX() - 1);
                     item.updateVelocityMoveLeft();
-                    System.out.println(item.getXVelocity() + "\n");
                 }
                 if (gc.intersectLeft(item, tile)) {
                     item.setX(tile.getX() + 1);
@@ -41,5 +43,36 @@ public class ItemCollision {
                 }
             }
         }
+    }
+
+    public void starFloorCollision(){
+        for (Item star : items)
+            if (star instanceof Star)
+                for (TileObject tile : tilesExceptMario) {
+                    ((Star) star).setStarHasIntersectDownWithBlock(false);
+                    // ((Star) star).setStarHasIntersectDownWithFloor(false);
+                    if (gc.intersectDown(star, tile)) {
+                        if (tile instanceof Floor) {
+                            ((Star) star).setStarHasIntersectDownWithFloor(true);
+                        }
+                        else if (tile instanceof Block)
+                            ((Star) star).setStarHasIntersectDownWithBlock(true);
+                    }
+                }
+                    /*if (gc.intersectDown(star, tile)) {
+                        ((Star) star).starHadIntersectDown();
+                        if (tile instanceof Floor) {
+                            if (!((Star) star).isLastTickWasOnFloor())
+                                ((Star) star).updateLastTimeFirstComeToFloor();
+
+                            if (((Star) star).isLastTickWasOnFloor() && ((Star) star).isJumpPossible()) {
+                                System.out.println("star should jump!    ");
+                                star.updateVelocityMoveUp();
+                                ((Star) star).updateLastTimeFirstComeToFloor();
+                            }
+                            ((Star) star).setLastTickWasOnFloor(true);
+                        }
+                        else ((Star) star).setLastTickWasOnFloor(false);
+                    }*/
     }
 }
