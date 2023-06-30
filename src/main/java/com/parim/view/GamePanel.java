@@ -7,6 +7,7 @@ import com.parim.model.components.*;
 import com.parim.model.components.blocks.Block;
 import com.parim.model.components.enemies.Enemy;
 import com.parim.model.components.items.Item;
+import com.parim.model.components.mario.MarioObject;
 import com.parim.model.components.pipes.Pipe;
 import com.parim.view.loaders.ImageLoader;
 

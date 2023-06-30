@@ -1,14 +1,14 @@
 package com.parim.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.parim.model.components.MarioObject;
+import com.parim.model.components.mario.MarioObject;
+import com.parim.model.components.mario.MarioState;
 
 import java.util.ArrayList;
 
 public class GameObject {
     private ArrayList<LevelObject> levels;
     private int hearts = 3, score = 0, coins = 0;
-    private String marioState = "MINI";
+    private MarioState marioState = MarioState.MINI;
     private MarioObject mario = new MarioObject(1, 0);
     private LevelObject currentLevel;
     private SectionObject currentSection;
@@ -64,11 +64,11 @@ public class GameObject {
         this.coins = coins;
     }
 
-    public String getMarioState() {
+    public MarioState getMarioState() {
         return marioState;
     }
 
-    public void setMarioState(String marioState) {
+    public void setMarioState(MarioState marioState) {
         this.marioState = marioState;
     }
 

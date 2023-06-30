@@ -3,7 +3,7 @@ package com.parim.model.components.enemies;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.parim.model.components.MarioObject;
+import com.parim.model.components.mario.MarioObject;
 import com.parim.model.components.TileObject;
 import com.parim.model.interfaces.HasGravity;
 import com.parim.model.interfaces.Movable;

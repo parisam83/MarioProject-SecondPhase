@@ -7,7 +7,7 @@ import com.parim.controller.Collision.MarioCollision;
 import com.parim.model.GameObject;
 import com.parim.model.LevelObject;
 import com.parim.model.SectionObject;
-import com.parim.model.components.MarioObject;
+import com.parim.model.components.mario.MarioObject;
 import com.parim.model.components.TileObject;
 import com.parim.model.components.blocks.Block;
 import com.parim.model.components.enemies.Enemy;
