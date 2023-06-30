@@ -4,6 +4,7 @@ import com.parim.controller.GameController;
 import com.parim.model.components.TileObject;
 import com.parim.model.components.blocks.Block;
 import com.parim.model.components.blocks.Floor;
+import com.parim.model.components.enemies.Enemy;
 import com.parim.model.components.items.Item;
 import com.parim.model.components.items.Star;
 
@@ -29,6 +30,8 @@ public class ItemCollision {
             if (!(item instanceof Star) && item.getYVelocity() <= 0) item.activateGravity();
             for (TileObject tile : tilesExceptMario){
                 if (item == tile) continue;
+                if (tile instanceof Enemy && (gc.intersectRight(item, tile) || gc.intersectLeft(item, tile) || gc.intersectUp(item, tile) || gc.intersectDown(item, tile)))
+                    gc.itemDiedByEnemy(item);
                 if (gc.intersectRight(item, tile)) {
                     item.setX(tile.getX() - 1);
                     item.updateVelocityMoveLeft();

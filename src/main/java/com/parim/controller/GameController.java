@@ -1,6 +1,7 @@
 package com.parim.controller;
 
 import com.parim.access.GameAccess;
+import com.parim.controller.Collision.EnemyCollision;
 import com.parim.controller.Collision.ItemCollision;
 import com.parim.controller.Collision.MarioCollision;
 import com.parim.model.GameObject;
@@ -95,6 +96,7 @@ public class GameController {
         down = false;
         new MarioCollision();
         new ItemCollision();
+        new EnemyCollision();
     }
 
     public boolean intersectRight(TileObject tile1, TileObject tile2){
@@ -249,6 +251,10 @@ public class GameController {
         }
         marioObject = gameObject.resetMario();
         tilesToAdd.add(marioObject);
+    }
+
+    public void itemDiedByEnemy(Item item) {
+        tilesToRemove.add(item);
     }
 
     private void gameOver() {

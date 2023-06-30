@@ -62,8 +62,12 @@ public class MarioCollision {
     private void enemyMarioCollision(){
         for (Enemy enemy : enemies){
             if (gc.intersectDown(mario, enemy)) {
-                if (!(enemy instanceof Spiny))
-                    gc.marioKillsEnemy(enemy);
+                if (enemy instanceof Spiny){
+                    ((Spiny) enemy).addNumberOfHits();
+                    if (((Spiny) enemy).limitOfHitExceeded())
+                        gc.marioKillsEnemy(enemy);
+                }
+                else gc.marioKillsEnemy(enemy);
             }
             if (gc.intersectRight(mario, enemy) || gc.intersectLeft(mario, enemy) || gc.intersectUp(mario, enemy)) {
                 gc.marioDiedByEnemy();
