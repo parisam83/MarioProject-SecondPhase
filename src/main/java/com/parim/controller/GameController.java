@@ -15,6 +15,7 @@ import com.parim.model.components.items.Item;
 import com.parim.model.components.pipes.Pipe;
 import com.parim.model.interfaces.HasTimeBeforeMove;
 import com.parim.model.interfaces.Movable;
+import com.parim.model.user.User;
 import com.parim.view.GamePanel;
 import com.parim.view.MainFrame;
 import com.parim.view.PausePanel;
@@ -41,8 +42,13 @@ public class GameController {
     private Set<Integer> pressedKeys = new HashSet<>();
     private double diff = 0.0001;
     private boolean down = false;
+    private static User user;
 
     public GameController(){}
+    public GameController(User user){
+        instance = this;
+        this.user = user;
+    }
     public GameController(MainFrame mainFrame){
         if (instance != null) return;
         instance = this;
@@ -372,5 +378,9 @@ public class GameController {
 
     public MarioObject getMarioObject() {
         return marioObject;
+    }
+
+    public static User getUser() {
+        return user;
     }
 }
