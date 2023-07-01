@@ -5,8 +5,9 @@ import com.parim.controller.Collision.EnemyCollision;
 import com.parim.controller.Collision.ItemCollision;
 import com.parim.controller.Collision.MarioCollision;
 import com.parim.model.GameObject;
+import com.parim.model.LevelObject;
 import com.parim.model.SectionObject;
-import com.parim.model.components.MarioObject;
+import com.parim.model.components.mario.MarioObject;
 import com.parim.model.components.TileObject;
 import com.parim.model.components.blocks.Block;
 import com.parim.model.components.enemies.Enemy;
@@ -17,6 +18,7 @@ import com.parim.model.interfaces.Movable;
 import com.parim.view.GamePanel;
 import com.parim.view.MainFrame;
 import com.parim.view.PausePanel;
+import com.parim.view.WinPanel;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -59,10 +61,49 @@ public class GameController {
             checkCollision();
             updateTiles();
             updateTimeOfTiles();
+            updateObjectsIfSectionEnded();
             gamePanel.requestFocus();
             mainFrame.repaint();
             mainFrame.revalidate();
         }
+    }
+
+    private void updateObjectsIfSectionEnded() {
+        if (marioObject.getX() > gameObject.getCurrentSection().getLength()-0.5) {
+            saveSectionToGameObject();
+            loadNextSectionAndUpdateGameObjectCurrents();
+        }
+    }
+
+    private void loadNextSectionAndUpdateGameObjectCurrents() {
+        SectionObject nextSection = gameObject.getNextSection();
+        LevelObject nextLevel = gameObject.getNextLevel();
+        if (nextSection == null){
+            if (nextLevel == null) marioWon();
+            else {
+                gameObject.setCurrentLevel(nextLevel);
+                gameObject.setCurrentSection(nextLevel.getSections().get(0));
+            }
+        }
+        else
+            gameObject.setCurrentSection(nextSection);
+
+        marioObject = gameObject.resetMario();
+        setAllTiles();
+    }
+
+    private void marioWon() {
+        // TODO
+        mainFrame.setContentPane(new WinPanel());
+    }
+
+    public void saveSectionToGameObject(){
+        // gameObject.changeSectionTo(gameObject.getCurrentSection(), );
+    }
+    private void saveGame(){
+        /* TODO:
+                new GameAccess().saveGame(gameObject.getCurrentLevel(), 2);
+        */
     }
 
     private void updateTimeOfTiles() {
@@ -161,7 +202,7 @@ public class GameController {
         else if (left) marioObject.updateVelocityMoveLeft();
 
         if (up) {
-            if (marioObject.getYVelocity() == 0){
+            if (marioObject.GetYVelocity() == 0){
                 marioObject.setInitialYBeforeJump(marioObject.getY());
                 marioObject.updateVelocityMoveUp();
             }
@@ -212,30 +253,24 @@ public class GameController {
         pressedKeys.remove(e);
     }
     private void setAllTiles() {
-        SectionObject sectionObject = gameObject.getLevels().get(0).getSections().get(0);
-        allTiles.add(marioObject);
-        blocks.addAll(sectionObject.getBlocks());
-        enemies.addAll(sectionObject.getEnemies());
-        pipes.addAll(sectionObject.getPipes());
-        allTiles.addAll(blocks);
-        allTiles.addAll(enemies);
-        allTiles.addAll(pipes);
+        SectionObject sectionObject = gameObject.getCurrentSection();
+        // Clear all objects
+        allTiles.clear();
+        blocks.clear();
+        enemies.clear();
+        pipes.clear();
+        items.clear();
 
-        /*for (LevelObject levelObject : gameObject.getLevels())
-            for (SectionObject sectionObject : levelObject.getSections()){
-                if (sectionObject.getBlocks() != null){
-                    blocks.addAll(sectionObject.getBlocks());
-                    allTiles.addAll(sectionObject.getBlocks());
-                }
-                if (sectionObject.getEnemies() != null) {
-                    enemies.addAll(sectionObject.getEnemies());
-                    allTiles.addAll(sectionObject.getEnemies());
-                }
-                if (sectionObject.getPipes() != null) {
-                    pipes.addAll(sectionObject.getPipes());
-                    allTiles.addAll(sectionObject.getPipes());
-                }
-            }*/
+        // Add objects to their specific ArrayLists
+        if (sectionObject.getBlocks() != null && !sectionObject.getBlocks().isEmpty()) blocks.addAll(sectionObject.getBlocks());
+        if (sectionObject.getEnemies() != null && !sectionObject.getEnemies().isEmpty()) enemies.addAll(sectionObject.getEnemies());
+        if (sectionObject.getPipes() != null && !sectionObject.getPipes().isEmpty()) pipes.addAll(sectionObject.getPipes());
+
+        // Add objects to allTiles ArrayList
+        allTiles.add(marioObject);
+        if (!blocks.isEmpty()) allTiles.addAll(blocks);
+        if (!enemies.isEmpty()) allTiles.addAll(enemies);
+        if (!pipes.isEmpty()) allTiles.addAll(pipes);
     }
 
 

@@ -1,6 +1,6 @@
 package com.parim.model.components.items;
 
-import com.parim.model.components.MarioObject;
+import com.parim.model.components.mario.MarioObject;
 import com.parim.model.components.TileObject;
 import com.parim.model.interfaces.HasGravity;
 import com.parim.model.interfaces.Movable;

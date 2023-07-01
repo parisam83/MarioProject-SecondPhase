@@ -1,6 +1,7 @@
-package com.parim.model.components;
+package com.parim.model.components.mario;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.parim.model.components.TileObject;
 import com.parim.model.interfaces.Movable;
 
 public class MarioObject extends TileObject implements Movable {
@@ -16,7 +17,7 @@ public class MarioObject extends TileObject implements Movable {
     }
 
     @Override
-    public String getType() {
+    public String GetType() {
         return "MINI"; // TODO
     }
 

@@ -28,7 +28,7 @@ public class SectionObject {
     }
 
     public void addFloors(){
-        for (int i = 0; i < length; i++){
+        for (int i = 0; i < HEIGHT*2; i++){
             blocks.add(new Floor(i, -1));
             blocks.add(new Floor(i, -2));
         }

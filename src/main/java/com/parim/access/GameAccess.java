@@ -6,6 +6,7 @@ import com.parim.model.GameObject;
 import com.parim.model.LevelObject;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -32,4 +33,15 @@ public class GameAccess {
             }
         }
         return new GameObject(levelObjects);
-    }}
+    }
+
+    public void saveGame(LevelObject level, int levelNumber){
+        File file = new File(directory + String.valueOf(levelNumber) + ".json");
+        file.delete();
+        try {
+            mapper.writeValue(new FileWriter(directory + String.valueOf(levelNumber) + ".json"), level);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}

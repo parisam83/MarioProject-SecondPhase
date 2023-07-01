@@ -1,6 +1,6 @@
 package com.parim.model.components.items;
 
-import com.parim.model.components.MarioObject;
+import com.parim.model.components.mario.MarioObject;
 import com.parim.model.interfaces.HasTimeBeforeMove;
 
 public class Star extends Item implements HasTimeBeforeMove {

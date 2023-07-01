@@ -3,7 +3,7 @@ package com.parim.model.components.enemies;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.parim.model.components.MarioObject;
+import com.parim.model.components.mario.MarioObject;
 import com.parim.model.components.TileObject;
 import com.parim.model.interfaces.HasGravity;
 import com.parim.model.interfaces.Movable;
@@ -19,11 +19,10 @@ import com.parim.model.interfaces.Movable;
         @JsonSubTypes.Type(value = Koopa.class, name = "KOOPA"),
         @JsonSubTypes.Type(value = Spiny.class, name = "SPINY"),
 })
-public class Enemy extends TileObject implements Movable, HasGravity {
+public abstract class Enemy extends TileObject implements Movable, HasGravity {
     @JsonIgnore
     public static double SPEED_RIGHT = MarioObject.SPEED_RIGHT/2, SPEED_UP = MarioObject.SPEED_UP/2;
     @JsonIgnore
-    protected boolean alive = true;
     protected boolean gravity = false;
 
     public Enemy(){
@@ -32,14 +31,6 @@ public class Enemy extends TileObject implements Movable, HasGravity {
     public Enemy(double x, double y) {
         super(x, y);
         xVelocity = -SPEED_RIGHT;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
     }
 
     @Override

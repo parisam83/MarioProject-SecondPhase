@@ -1,9 +1,7 @@
 package com.parim.model.components.items;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.parim.model.components.MarioObject;
+import com.parim.model.components.mario.MarioObject;
 import com.parim.model.interfaces.HasTimeBeforeMove;
-import com.parim.model.interfaces.Movable;
 
 public class Mushroom extends Item implements HasTimeBeforeMove {
     public static int TIME = 3;

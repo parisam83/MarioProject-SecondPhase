@@ -3,10 +3,14 @@ package com.parim.model.components;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class TileObject {
+    protected double x, y;
     @JsonIgnore
     protected static double SIZE;
-    protected double x, y, width = 1, height = 1;
-    protected double xVelocity, yVelocity;
+    @JsonIgnore
+    private double width = 1, height = 1;
+    @JsonIgnore
+    protected double xVelocity = 0, yVelocity = 0;
+    @JsonIgnore
     public int SCORE, COIN;
 
     public TileObject(){}
@@ -56,15 +60,11 @@ public abstract class TileObject {
         this.height = height;
     }
 
-    public double getXVelocity() {
-        return xVelocity;
-    }
-
     public void setXVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
 
-    public double getYVelocity() {
+    public double GetYVelocity() {
         return yVelocity;
     }
 
@@ -72,7 +72,7 @@ public abstract class TileObject {
         this.yVelocity = yVelocity;
     }
 
-    public String getType(){
+    public String GetType(){
         return this.getClass().getSimpleName();
     }
 }

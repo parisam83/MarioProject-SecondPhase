@@ -35,6 +35,7 @@ public abstract class Block extends TileObject {
         return numberOfHits;
     }
 
+    @JsonIgnore
     public void setNumberOfHits(int numberOfHits) {
         this.numberOfHits = numberOfHits;
     }
