@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
     private ShopPage shopPage;
 
     public MainFrame(){
-        if (instance != null) return;
+        if (instance != null) instance.dispose();
         instance = this;
 
         this.setTitle("Super Mario Game!");
@@ -79,26 +79,9 @@ public class MainFrame extends JFrame {
         previousGamePage = new PreviousGamePage(GameController.getUser());
         setPage(previousGamePage);
     }
-//
-//    public void setGamePage(Game game){
-//        gamePage = new GamePage(game, user);
-//        gamePage.startAgain();
-//        setPage(gamePage);
-//    }
-//
-//    public void setWinGamePage() {
-//        winGamePage = new WinGamePage();
-//        setPage(winGamePage);
-//    }
-//
-//    public void setLoseGamePage() {
-//        loseGamePage = new LoseGamePage();
-//        setPage(loseGamePage);
-//    }
 
     private void setPage(JPanel panel){
         this.setContentPane(panel);
-        this.setLocationRelativeTo(null);
         this.setVisible(true);
         panel.requestFocus();
         panel.setVisible(true);

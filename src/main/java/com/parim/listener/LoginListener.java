@@ -13,7 +13,7 @@ public class LoginListener implements FormListener{
         if (user == null)
             MainFrame.getInstance().unsuccessfulLoginError();
         else{
-            new GameController(user);
+            GameController.setUser(user);
             MainFrame.getInstance().setMenuPage();
         }
     }
