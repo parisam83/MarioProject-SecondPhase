@@ -22,7 +22,7 @@ public class WinPanel extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    // TODO: MainFrame.getInstance().setMenuPage();
+                    System.exit(0);
                 }
             }
         });
