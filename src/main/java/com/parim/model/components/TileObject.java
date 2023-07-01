@@ -63,6 +63,10 @@ public abstract class TileObject {
     public void setXVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
+    public double GetXVelocity() {
+        return xVelocity;
+    }
+
 
     public double GetYVelocity() {
         return yVelocity;

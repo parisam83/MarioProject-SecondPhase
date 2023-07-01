@@ -39,12 +39,19 @@ public class GamePanel extends JPanel {
         updateTiles();
         GameLogs.draw(g, game.getScore(), game.getCoins(), game.calculateGameState(), game.getCurrentSection().getTime(), game.getHearts());
         TileObject.setSIZE(Toolkit.getDefaultToolkit().getScreenSize().width/(double) section.getLength());
-        // TODO: change mario direction when velocity is manfi
-        g.drawImage(ImageLoader.getInstance().LoadObject("/marios/" + mario.GetType(), mario.getWidth(), mario.getHeight()), (int) (mario.getX() * TileObject.getSIZE()), (int) ((9.5 - mario.getY()+2) * TileObject.getSIZE()), null);
+
+        if (mario.GetXVelocity() >= 0)
+            g.drawImage(ImageLoader.getInstance().LoadObject("/marios/" + mario.GetType() + "R", mario.getWidth(), mario.getHeight()), (int) (mario.getX() * TileObject.getSIZE()), (int) ((9.5 - mario.getY()+2) * TileObject.getSIZE()), null);
+        else
+            g.drawImage(ImageLoader.getInstance().LoadObject("/marios/" + mario.GetType() + "L", mario.getWidth(), mario.getHeight()), (int) (mario.getX() * TileObject.getSIZE()), (int) ((9.5 - mario.getY()+2) * TileObject.getSIZE()), null);
         for (Block block : blocks)
             g.drawImage(ImageLoader.getInstance().LoadObject("/blocks/" + block.GetType(), block.getWidth(), block.getHeight()), (int) (block.getX() * TileObject.getSIZE()), (int) ((9.5 - block.getY() + 2) * TileObject.getSIZE()), null);
-        for (Enemy enemy : enemies)
-            g.drawImage(ImageLoader.getInstance().LoadObject("/enemies/" + enemy.GetType(), enemy.getWidth(), enemy.getHeight()), (int) (enemy.getX() * TileObject.getSIZE()), (int) ((9.5 - enemy.getY() + 2) * TileObject.getSIZE()), null);
+        for (Enemy enemy : enemies) {
+            if (enemy.GetXVelocity() >= 0)
+                g.drawImage(ImageLoader.getInstance().LoadObject("/enemies/" + enemy.GetType() + "R", enemy.getWidth(), enemy.getHeight()), (int) (enemy.getX() * TileObject.getSIZE()), (int) ((9.5 - enemy.getY() + 2) * TileObject.getSIZE()), null);
+            else
+                g.drawImage(ImageLoader.getInstance().LoadObject("/enemies/" + enemy.GetType() + "L", enemy.getWidth(), enemy.getHeight()), (int) (enemy.getX() * TileObject.getSIZE()), (int) ((9.5 - enemy.getY() + 2) * TileObject.getSIZE()), null);
+        }
         for (Pipe pipe : pipes)
             g.drawImage(ImageLoader.getInstance().LoadObject("/pipes/" + pipe.GetType(), pipe.getWidth(), pipe.getHeight()), (int) ((pipe.getX()-pipe.getWidth()+1) * TileObject.getSIZE()), (int) ((9.5 - pipe.getY() - pipe.getHeight()+3) * TileObject.getSIZE()), null);
         if (items.size() > 0)

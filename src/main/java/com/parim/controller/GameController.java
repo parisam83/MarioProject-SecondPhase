@@ -15,10 +15,8 @@ import com.parim.model.components.items.Item;
 import com.parim.model.components.pipes.Pipe;
 import com.parim.model.interfaces.HasTimeBeforeMove;
 import com.parim.model.interfaces.Movable;
-import com.parim.view.GamePanel;
-import com.parim.view.MainFrame;
-import com.parim.view.PausePanel;
-import com.parim.view.WinPanel;
+import com.parim.model.user.User;
+import com.parim.view.*;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ import java.util.Set;
 public class GameController {
     private static GameController instance;
     private boolean gameFinished = false;
-    private MainFrame mainFrame;
+    private GameFrame gameFrame;
     private GamePanel gamePanel;
     private PausePanel pausePanel = new PausePanel();
     private GameObject gameObject = new GameAccess().loadGame();
@@ -40,37 +38,36 @@ public class GameController {
     private ArrayList<Item> items = new ArrayList<>();
     private Set<Integer> pressedKeys = new HashSet<>();
     private double diff = 0.0001;
-    private boolean down = false;
+    private static User user;
+    private static boolean checkIfStart = false;
 
     public GameController(){}
-    public GameController(MainFrame mainFrame){
-        if (instance != null) return;
-        instance = this;
-
-        setAllTiles();
-        this.mainFrame = mainFrame;
-        this.mainFrame.setContentPane(gamePanel = new GamePanel());
-        gamePanel.requestFocus();
-    }
 
     public void run(){
+        int time = 0;
         while (!gameFinished) {
             sleep();
+            time++;
+            if (time % 60 == 0)
+                gameObject.getCurrentSection().updateTime();
             updateVelocity();
             move();
             checkCollision();
             updateTiles();
             updateTimeOfTiles();
             updateObjectsIfSectionEnded();
+            if (gameObject.getHearts() == 0){
+                gameOver();
+                gameFinished = true;
+            }
             gamePanel.requestFocus();
-            mainFrame.repaint();
-            mainFrame.revalidate();
+            gameFrame.repaint();
+            gameFrame.revalidate();
         }
     }
 
     private void updateObjectsIfSectionEnded() {
         if (marioObject.getX() > gameObject.getCurrentSection().getLength()-0.5) {
-            saveSectionToGameObject();
             loadNextSectionAndUpdateGameObjectCurrents();
         }
     }
@@ -79,7 +76,10 @@ public class GameController {
         SectionObject nextSection = gameObject.getNextSection();
         LevelObject nextLevel = gameObject.getNextLevel();
         if (nextSection == null){
-            if (nextLevel == null) marioWon();
+            if (nextLevel == null) {
+                marioWon();
+                gameFinished = true;
+            }
             else {
                 gameObject.setCurrentLevel(nextLevel);
                 gameObject.setCurrentSection(nextLevel.getSections().get(0));
@@ -93,17 +93,11 @@ public class GameController {
     }
 
     private void marioWon() {
-        // TODO
-        mainFrame.setContentPane(new WinPanel());
+        gameFrame.setContentPane(new WinPanel());
     }
 
-    public void saveSectionToGameObject(){
-        // gameObject.changeSectionTo(gameObject.getCurrentSection(), );
-    }
     private void saveGame(){
-        /* TODO:
-                new GameAccess().saveGame(gameObject.getCurrentLevel(), 2);
-        */
+        new GameAccess().saveGame(gameObject.getCurrentLevel(), 2);
     }
 
     private void updateTimeOfTiles() {
@@ -134,7 +128,6 @@ public class GameController {
     }
 
     private void checkCollision() {
-        down = false;
         new MarioCollision();
         new ItemCollision();
         new EnemyCollision();
@@ -242,7 +235,7 @@ public class GameController {
         return gameObject;
     }
     public static GameController getInstance(){
-        if (instance == null)  instance = new GameController(new MainFrame());
+        if (instance == null)  instance = new GameController();
         return instance;
     }
 
@@ -280,10 +273,10 @@ public class GameController {
     }
     public void marioDiedByEnemy(){
         tilesToRemove.add(marioObject);
-        if (gameObject.getHearts() == 0){
+        /*if (gameObject.getHearts() == 0){
             gameOver();
             return;
-        }
+        }*/
         marioObject = gameObject.resetMario();
         tilesToAdd.add(marioObject);
     }
@@ -293,7 +286,8 @@ public class GameController {
     }
 
     private void gameOver() {
-        // TODO
+        if (!gameFinished)
+            gameFrame.setContentPane(new LosePanel());
     }
 
     public void marioAteItem(Item item){
@@ -372,5 +366,32 @@ public class GameController {
 
     public MarioObject getMarioObject() {
         return marioObject;
+    }
+
+    public static User getUser() {
+        return user;
+    }
+
+    public static void setUser(User user) {
+        GameController.user = user;
+    }
+
+    public void checkStart() {
+        while(true) {
+            sleep();
+            if (checkIfStart){
+                MainFrame.getInstance().dispose();
+                setAllTiles();
+                this.gameFrame = new GameFrame();
+                this.gameFrame.setContentPane(gamePanel = new GamePanel());
+                gamePanel.requestFocus();
+                run();
+                break;
+            }
+        }
+    }
+
+    public static void setCheckIfStart(boolean checkIfStart) {
+        GameController.checkIfStart = checkIfStart;
     }
 }

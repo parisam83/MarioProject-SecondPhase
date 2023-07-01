@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LabelCreator extends JLabel {
-    private int x = 0, y = 20;
+    private int x = 0, y = 80;
     private Font font = FontLoader.titleFont;
     private final String text;
     public LabelCreator(String text){
@@ -16,6 +16,11 @@ public class LabelCreator extends JLabel {
     public LabelCreator(String text, Font font){
         this.text = text;
         this.font = font;
+        createLabel();
+    }
+    public LabelCreator(int y, String text){
+        this.y = y;
+        this.text = text;
         createLabel();
     }
     public LabelCreator(int y, String text, Font font){

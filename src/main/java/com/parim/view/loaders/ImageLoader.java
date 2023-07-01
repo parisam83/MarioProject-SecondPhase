@@ -43,6 +43,23 @@ public class ImageLoader {
         imagesCollection.put(directory, image);
         return image;
     }
+    public Image LoadCharacter(String directory, int width, int height) {
+        Image image;
+        try {
+            image = ImageIO.read(new File("src/main/resources/characters/" + directory + ".png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        image = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return image;
+    }
+
+    public Image LoadSmallCharacter(String directory) {
+        return LoadCharacter(directory, 190, 190);
+    }
+    public Image LoadBigCharacter(String directory) {
+        return LoadCharacter(directory, 400, 400);
+    }
 
     public static ImageLoader getInstance() {
         if (instance == null) instance = new ImageLoader();

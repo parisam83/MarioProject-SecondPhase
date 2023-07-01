@@ -1,0 +1,10 @@
+{
+  "id" : 6,
+  "maxScore" : 0,
+  "coins" : 0,
+  "username" : "Adszv",
+  "password" : "password",
+  "currentCharacter" : "Mario",
+  "savedGames" : [ ],
+  "characters" : [ "Mario" ]
+}

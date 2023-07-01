@@ -34,6 +34,10 @@ public class SectionObject {
         }
     }
 
+    public void updateTime(){
+        time++;
+    }
+
     // Getters and Setters
     public static int getHEIGHT() {
         return HEIGHT;
